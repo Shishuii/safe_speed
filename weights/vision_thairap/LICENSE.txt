@@ -1,0 +1,103 @@
+ThaiRAP-trained weights (thairap_probes.npz, dinov3_heads.npz)
+=============================================================
+
+LICENCE
+  thairap_probes.npz  Creative Commons Attribution-NonCommercial 4.0 International
+                      (CC BY-NC 4.0), https://creativecommons.org/licenses/by-nc/4.0/
+  dinov3_heads.npz    CC BY-NC 4.0 as above, because it is trained on the same
+                      ThaiRAP labels. It may also be a derivative work of DINOv3
+                      (see "DINOv3 backbone" below). If it is, it is distributed
+                      under the DINOv3 License AND keeps the CC BY-NC 4.0
+                      non-commercial limit: both sets of terms apply at once.
+
+NON-COMMERCIAL, RESEARCH USE ONLY. Neither file may be used for commercial
+purposes.
+
+What the licence reaches
+  Both files in this folder, and everything computed from their outputs. That
+  includes files outside this folder:
+    weights/vision/vision_speed_trees.json   (trained on the 10 probe features)
+    weights/ensemble/*_vision.json|.npz, gbm_c2g_vision_irap.json and stack.json
+                                             (the ensemble's image members)
+    data/vision_sample/expected_vision.csv (v_* and a_* columns),
+    data/graph_sample/ (v_* and a_* columns)
+    any vision or ensemble output you compute with them
+  Treat all of these as non-commercial too. The design-speed model
+  (weights/design_speed_trees.json) and the ensemble members without "_vision"
+  in their name (the "without_images" stack) do not use either file.
+
+What the files contain
+  thairap_probes.npz: 11 logistic-regression probes (coefficients, intercepts,
+  iRAP class codes and short iRAP category names) that map a CLIP ViT-L/14 image
+  embedding to an iRAP road attribute code: street lighting, paved shoulder (both
+  sides), roadside severity distance and object (both sides), skid resistance,
+  traffic calming, property access and service road. They were fitted by the
+  SafeSpeed team on CLIP embeddings of the 2,037 ThaiRAP survey images, with the
+  ThaiRAP ground truth distributed with V-RoAst as labels.
+
+  dinov3_heads.npz: the DINOv3 ThaiRAP classifier. One linear softmax head per
+  ThaiRAP attribute that varies in the labels (weights, biases, the input
+  standardisation, iRAP class codes and each attribute's role), on frozen
+  DINOv3 ViT-L/16 image features. Trained by the SafeSpeed team on the same
+  ThaiRAP images and labels, mirrored images with driver/passenger-side labels
+  swapped included. Only the design-role attributes are model inputs (the
+  ensemble member gbm_c2g_vision_irap); the reference-role heads are kept for
+  completeness.
+
+  No ThaiRAP image, label table or V-RoAst prompt text is included.
+
+DINOv3 backbone
+  The classifier runs on features of Meta's DINOv3 ViT-L/16
+  (timm/vit_large_patch16_dinov3.lvd1689m). The backbone weights are not
+  included. DINOv3 is licensed under the DINOv3 License
+  (https://ai.meta.com/resources/models-and-libraries/dinov3-license). The full
+  text is in DINOv3_LICENSE.md and it governs; this is a summary. It is not a
+  non-commercial licence, but it sets conditions on the DINO Materials and on
+  any derivative works of them:
+    1.b.i    They may only be distributed or made available to a third party
+             under the terms of the DINOv3 License, with a copy of it.
+    1.b.ii   Published research that uses them must acknowledge DINOv3.
+    1.b.iii  Use must comply with applicable law, including trade-control and
+             privacy law.
+    1.b.iv   Their use must not involve or encourage reverse engineering,
+             decompiling or discovering their underlying components.
+    1.b.v    No use by a target of trade controls, and no use (or letting others
+             use them) for activities subject to ITAR or end uses that trade
+             controls prohibit, including military or warfare, nuclear
+             applications, espionage, and guns or illegal weapons.
+  Whether dinov3_heads.npz (trained on DINOv3 features) and the cached features
+  in data/vision_sample/dinov3_features.npz are derivative works is not
+  settled. If they are, they are distributed under the DINOv3 License (its copy
+  is in this folder), and dinov3_heads.npz also keeps the CC BY-NC 4.0
+  non-commercial limit that comes from the ThaiRAP labels. Anyone who passes the
+  heads on must then meet both sets of terms. Whoever decides to distribute them
+  should settle this question first.
+
+Provenance of the training material (stated exactly)
+  Images: University College London Research Data Repository,
+    doi:10.5522/04/26520787.v1, licensed CC BY-NC 4.0.
+  Labels (ThaiRAP_GT.csv) and the image-to-segment table (Validation.csv): the
+    V-RoAst GitHub repository, github.com/PongNJ/V-RoAst, commit 581809a. That
+    repository declares no licence. The data record describes the 52 iRAP
+    attributes, which suggests the authors intend CC BY-NC 4.0 to cover the
+    labels too, but this has not been confirmed. Written confirmation from the
+    V-RoAst authors should be obtained before these weights are distributed.
+
+Attribution (required)
+  Jongwiriyanurak, N., Zeng, Z., Wang, M., Haworth, J., Tanaksaranond, G. &
+  Boehm, J. (2025). V-RoAst: Visual Road Assessment. Can VLM be a Road Safety
+  Assessor Using the iRAP Standard? ICCV Workshops (ICCVW), 1669-1678.
+  doi:10.1109/ICCVW69036.2025.00176
+  iRAP attribute codes follow the iRAP Star Rating Coding Manual.
+  Adapted by the SafeSpeed team (AI for Safer Roads 2026 Innovation Challenge):
+  probes trained on frozen CLIP embeddings and a classifier trained on frozen
+  DINOv3 features; no warranty.
+
+Using the package without these weights
+  The DINOv3 classifier is optional: without dinov3_heads.npz everything else
+  runs. Only `python run_vision.py --with-dinov3` (the a_* columns) and
+  `python run_ensemble.py --stack with_dinov3` use it.
+  Without the whole folder the vision model does not run. The design-speed
+  model (`python run_inference.py`) does not use it, and
+  `python run_ensemble.py --stack without_images` runs the ensemble without any
+  image member.

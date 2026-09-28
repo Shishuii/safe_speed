@@ -1,0 +1,268 @@
+{
+ "format": "safespeed-graphsage/1",
+ "architecture": {
+  "type": "GraphSAGE (torch_geometric SAGEConv, aggr=mean, root_weight=True, normalize=False)",
+  "layers": [
+   "c1 = SAGEConv(in, 96)",
+   "relu",
+   "dropout 0.2 (train only)",
+   "c2 = SAGEConv(96, 96)",
+   "relu",
+   "+ skip = Linear(in, 96)(x)",
+   "head = Linear(96, 48) -> relu -> Linear(48, 1)"
+  ],
+  "in_dim": 28,
+  "hidden": 96,
+  "state_dict_keys": {
+   "c1.lin_l.weight": [
+    96,
+    28
+   ],
+   "c1.lin_l.bias": [
+    96
+   ],
+   "c1.lin_r.weight": [
+    96,
+    28
+   ],
+   "c2.lin_l.weight": [
+    96,
+    96
+   ],
+   "c2.lin_l.bias": [
+    96
+   ],
+   "c2.lin_r.weight": [
+    96,
+    96
+   ],
+   "skip.weight": [
+    96,
+    28
+   ],
+   "skip.bias": [
+    96
+   ],
+   "head.0.weight": [
+    48,
+    96
+   ],
+   "head.0.bias": [
+    48
+   ],
+   "head.2.weight": [
+    1,
+    48
+   ],
+   "head.2.bias": [
+    1
+   ]
+  }
+ },
+ "graph": "topological",
+ "graph_edges_full": 128568,
+ "training": {
+  "epochs": 400,
+  "optimizer": "Adam",
+  "lr": 0.01,
+  "weight_decay": 0.0005,
+  "loss": "weighted Huber (delta 1.0)",
+  "seed": 42,
+  "device": "NVIDIA GeForce RTX 2080 Ti",
+  "rows": "all 46,548 labelled nodes (in-sample)"
+ },
+ "features": [
+  "posted_limit",
+  "frc",
+  "length_log",
+  "poi_vru_log",
+  "pop_log",
+  "pop_density_log",
+  "school_log",
+  "transport_log",
+  "geo_sinuosity",
+  "geo_curvature",
+  "geo_turn_sharp",
+  "geo_junction_density",
+  "lat",
+  "lon",
+  "c2g_dual_degree",
+  "c2g_dual_clustering",
+  "c2g_pagerank",
+  "c2g_betweenness",
+  "c2g_closeness_local",
+  "c2g_ego_size",
+  "c2g_knn_dist_mean",
+  "c2g_radius_count",
+  "c2g_emst_degree",
+  "c2g_delaunay_degree",
+  "c2g_gabriel_degree",
+  "c2g_rng_degree",
+  "c2g_planar_ratio",
+  "country_TH"
+ ],
+ "standardise": {
+  "posted_limit": {
+   "median": 55.0,
+   "mean": 66.14894302655324,
+   "sd": 20.095273620178236
+  },
+  "frc": {
+   "median": 3.0,
+   "mean": 2.9120692618372432,
+   "sd": 1.400084545261875
+  },
+  "length_log": {
+   "median": 5.074829993922824,
+   "mean": 5.0213923853063305,
+   "sd": 1.2444166198857363
+  },
+  "poi_vru_log": {
+   "median": 1.9878743481543455,
+   "mean": 2.0534725505502784,
+   "sd": 1.2915375610761262
+  },
+  "pop_log": {
+   "median": 6.356799617103068,
+   "mean": 6.203397052618906,
+   "sd": 1.5189795103989843
+  },
+  "pop_density_log": {
+   "median": 2.562605641386583,
+   "mean": 2.608427896771994,
+   "sd": 1.2236375882694797
+  },
+  "school_log": {
+   "median": 0.6931471805599453,
+   "mean": 1.0044057083675735,
+   "sd": 1.0446022310357932
+  },
+  "transport_log": {
+   "median": 0.0,
+   "mean": 0.39428928848176265,
+   "sd": 0.6434943929457148
+  },
+  "geo_sinuosity": {
+   "median": 1.0001312937524944,
+   "mean": 1.0165162394698817,
+   "sd": 0.22469157921151073
+  },
+  "geo_curvature": {
+   "median": 0.0002892735540749651,
+   "mean": 0.0015822076757391734,
+   "sd": 0.005966969605749521
+  },
+  "geo_turn_sharp": {
+   "median": 0.0,
+   "mean": 0.006595342442210192,
+   "sd": 0.09864764325937574
+  },
+  "geo_junction_density": {
+   "median": 12.986495525530309,
+   "mean": 128.17686846674266,
+   "sd": 322.9121219000477
+  },
+  "lat": {
+   "median": 17.988501428571425,
+   "mean": 17.16191748745029,
+   "sd": 3.2528502300583746
+  },
+  "lon": {
+   "median": 78.968635,
+   "mean": 87.14604828318951,
+   "sd": 12.879144168183453
+  },
+  "c2g_dual_degree": {
+   "median": 1.0,
+   "mean": 1.7944917074847468,
+   "sd": 1.6025707337944404
+  },
+  "c2g_dual_clustering": {
+   "median": 0.0,
+   "mean": 0.2593003842423796,
+   "sd": 0.39854128251113
+  },
+  "c2g_pagerank": {
+   "median": 3.6579006666900766e-05,
+   "mean": 4.1213084298449765e-05,
+   "sd": 2.1007154224501196e-05
+  },
+  "c2g_betweenness": {
+   "median": 0.0,
+   "mean": 2.445537840489415e-07,
+   "sd": 1.5452814261288418e-06
+  },
+  "c2g_closeness_local": {
+   "median": 0.5,
+   "mean": 0.5176699937029058,
+   "sd": 0.10883815414621104
+  },
+  "c2g_ego_size": {
+   "median": 2.0,
+   "mean": 3.4121551946377933,
+   "sd": 2.887628633946203
+  },
+  "c2g_knn_dist_mean": {
+   "median": 1371.0011659770344,
+   "mean": 2108.5916213089927,
+   "sd": 2279.138341556985
+  },
+  "c2g_radius_count": {
+   "median": 3.0,
+   "mean": 6.260054137664347,
+   "sd": 10.482010357421935
+  },
+  "c2g_emst_degree": {
+   "median": 2.0,
+   "mean": 1.4707183982125978,
+   "sd": 0.9890598738514185
+  },
+  "c2g_delaunay_degree": {
+   "median": 5.0,
+   "mean": 4.3840336856578155,
+   "sd": 3.247426826999641
+  },
+  "c2g_gabriel_degree": {
+   "median": 1.0,
+   "mean": 1.267487324911919,
+   "sd": 1.2099430816524968
+  },
+  "c2g_rng_degree": {
+   "median": 2.0,
+   "mean": 1.602904528658589,
+   "sd": 1.0591966546536435
+  },
+  "c2g_planar_ratio": {
+   "median": 0.4,
+   "mean": 0.4088288150530716,
+   "sd": 0.14902103775502343
+  },
+  "country_TH": {
+   "median": 0.0,
+   "mean": 0.45810775973188966,
+   "sd": 0.49824194946363054
+  }
+ },
+ "standardise_rule": "x = median if NaN; z = (x - mean) / sd (0 if sd == 0); float64, then float32",
+ "provenance": {
+  "versions": {
+   "numpy": "2.2.6",
+   "pandas": "3.0.2",
+   "scipy": "1.15.3",
+   "sklearn": "1.8.0",
+   "torch": "2.9.0+cu128",
+   "torch_geometric": "2.8.0",
+   "city2graph": "0.4.0",
+   "torch.version.cuda": "12.8",
+   "cuda_device": "NVIDIA GeForce RTX 2080 Ti",
+   "python": "3.11.9"
+  },
+  "sha256": {
+   "scripts/train_ensemble_vision.py": "08a5fd64b7c4ffad943d85fd1b31a85867c2c73375795a5602eb698e85c5c952",
+   "cv_protocol_script": "5be9ff830ad315c24ab0e9bafe35e50de9222d564bbadefe95b00b6b737f229f",
+   "scripts/train_irap_classifier.py": "48d5365c2f7ea52e801b722afe9c36bbfb8ba13f030fac779507fe0b36195cef",
+   "data/external/vision/irap_heads_dinov3_l.npz": "4a3d070f0cfe7b1b8881bb245fd57d7272253841442719e5fb65714c23daa1f2",
+   "data/external/vision/irap_scores_thb_dinov3_l.parquet": "2b43ddc8c16ee8ead0f013f41c9f511306374d4c829f8d2f0ea6689821f10e05"
+  }
+ }
+}

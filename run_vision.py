@@ -4,8 +4,6 @@
     python3 run_vision.py                 # the sample (3 Thai segments, 7 images), cached features
     python3 run_vision.py --check         # ... and compare with data/vision_sample/expected_vision.csv
     python3 run_vision.py --with-dinov3   # also run the DINOv3 ThaiRAP classifier (a_* columns)
-    python3 run_vision.py --from-pixels   # recompute the CLIP embeddings from the JPEGs
-                                          # (torch + transformers; downloads once)
     python3 run_vision.py --images my_images.csv --segments my_segments.csv \\
         --embeddings my_emb.npz --detections my_detections.jsonl --output my_vision.csv
     python3 run_vision.py --images my_images.csv --segments my_segments.csv \\
@@ -19,9 +17,7 @@ code 2).
 
 Needs numpy and pandas (Pillow, torch and transformers only to embed images; timm
 too for DINOv3). Everything in weights/vision_thairap/ is trained on ThaiRAP labels
-and is non-commercial (CC BY-NC 4.0). --no-thairap skips the ThaiRAP probes and the
-DINOv3 classifier, but the vision speed model still runs (non-commercial, see
-weights/vision_thairap/LICENSE.txt) and its predictions are then off-design.
+and is non-commercial (CC BY-NC 4.0): see weights/vision_thairap/LICENSE.txt.
 """
 from __future__ import annotations
 
@@ -39,9 +35,7 @@ import pandas as pd  # noqa: E402
 HERE = Path(__file__).resolve().parent
 SAMPLE = HERE / "data" / "vision_sample"
 sys.path.insert(0, str(HERE))
-from safespeed._assets import require_assets  # noqa: E402
-require_assets(HERE)            # data/ and weights/ come from the Google Drive download
-from safespeed import vision  # noqa: E402
+from safespeed import vision, write_csv  # noqa: E402
 
 #: v_emb_* are float32 PCA scores. A float32 matrix product is rounded
 #: differently for different matrix sizes (BLAS blocking), so the sample's 7
@@ -53,8 +47,6 @@ VEMB_TOL = 1e-6
 #: pipeline's arithmetic and reproduces them bit for bit here; the tolerance only
 #: allows for a last-digit difference in another numpy/BLAS build.
 A_TOL = 1e-6
-#: --from-pixels: recomputed DINOv3 features must keep this cosine to the cache
-DINO_COS_MIN = 0.999
 
 
 def compare(out: pd.DataFrame, exp: pd.DataFrame) -> tuple[dict, list, dict]:
@@ -116,89 +108,15 @@ def summary(pred: pd.DataFrame, segs: pd.DataFrame | None) -> None:
         print("DINOv3 ThaiRAP classifier: not run (--with-dinov3 adds its a_* columns).")
 
 
-def from_pixels(images: pd.DataFrame, segs, cached, det, out_cached: pd.DataFrame,
-                img_cached: pd.DataFrame, image_dir: Path, thairap: bool, dino=None) -> int:
-    """Recompute the embeddings with CLIP and report how far they move the outputs."""
+def clip_embedder():
+    """The CLIP embedder, loaded before any image is read. Without the packages in
+    requirements-vision.txt, or when the backbone cannot be downloaded, stop with a plain
+    message (exit code 1) instead of a traceback."""
     from safespeed.vision import embed
-    print("\n--from-pixels: recomputing CLIP ViT-L/14 embeddings "
-          f"({embed.MODEL_ID} @ {embed.REVISION[:12]}) ...")
-    t0 = time.time()
-    ids_new, E_new = embed.embed_images(vision.filter_images(images), image_dir)
-    print(f"  {len(ids_new)} images embedded in {time.time() - t0:.0f} s")
-    ids_c, E_c = cached
-    pos = {k: j for j, k in enumerate(ids_c)}
-    Ec = E_c[[pos[i] for i in ids_new]]
-    cos = (Ec * E_new).sum(1) / (np.linalg.norm(Ec, axis=1) * np.linalg.norm(E_new, axis=1))
-    print(f"  cosine to the cached embeddings: min {cos.min():.5f}, mean {cos.mean():.5f}; "
-          f"max |d| {np.abs(Ec - E_new).max():.1e}")
-    new, img_new = vision.predict_segments(images, segs, (ids_new, E_new), detections=det,
-                                           thairap=thairap, return_images=True, dinov3=dino)
-    a = img_cached.drop_duplicates("image_id").set_index("image_id")
-    b = img_new.drop_duplicates("image_id").set_index("image_id").loc[a.index]
-    code_cols = [c for c in a.columns if c.startswith("thairap_")]
-    flips = {c[8:]: int((a[c] != b[c]).sum()) for c in code_cols if (a[c] != b[c]).any()}
-    n_codes = len(code_cols) * len(a)
-    print(f"  ThaiRAP probe codes that flip: {sum(flips.values())} of {n_codes}"
-          + (f" {flips}" if flips else ""))
-    print(f"  v_divided flips: {int((a.v_divided != b.v_divided).sum())} of {len(a)}; "
-          f"P(divided) max |d| {np.abs(a.p_divided - b.p_divided).max():.4f}; "
-          f"expected lanes max |d| {np.abs(a.v_lanes - b.v_lanes).max():.4f}")
-    o, n = out_cached.set_index("id"), new.set_index("id").loc[out_cached.id]
-    for c in ("vis_pred_v50", "vis_pred_v85", "vis_harm", "vis_safe_speed"):
-        d = (n[c].astype(float) - o[c].astype(float)).abs()
-        print(f"  {c:<15} max |change| {d.max():.4g}")
-    ok = cos.min() >= 0.999
-    print("  from-pixels: " + ("WITHIN TOLERANCE" if ok else "OUTSIDE TOLERANCE")
-          + " (cosine >= 0.999 required; recomputed embeddings are never bit-identical "
-            "across library versions and devices, see safespeed/vision/embed.py)")
-    rc = 0 if ok else 1
-    if dino is not None and thairap:
-        rc = max(rc, dinov3_from_pixels(images, segs, cached, det, dino, out_cached,
-                                        img_cached, image_dir))
-    return rc
-
-
-def dinov3_from_pixels(images, segs, cached, det, dino, out_cached, img_cached,
-                       image_dir: Path) -> int:
-    """Recompute the DINOv3 features and report how far they move the classifier."""
-    from safespeed.vision import embed
-    print(f"\n--from-pixels: recomputing DINOv3 ViT-L/16 features ({embed.DINOV3_HUB_ID} @ "
-          f"{embed.DINOV3_REVISION[:12]}) ...")
-    t0 = time.time()
     try:
-        ids_new, F16 = embed.dinov3_features(vision.filter_images(images), image_dir)
+        return embed.Embedder()
     except (ImportError, RuntimeError) as e:
-        print(f"  DINOv3 from pixels: NOT CHECKED - {e}")
-        return 0
-    F_new = F16.astype(np.float32)
-    print(f"  {len(ids_new)} images in {time.time() - t0:.0f} s")
-    ids_c, F_c = dino
-    pos = {k: j for j, k in enumerate(ids_c)}
-    Fc = F_c[[pos[i] for i in ids_new]]
-    cos = (Fc * F_new).sum(1) / (np.linalg.norm(Fc, axis=1) * np.linalg.norm(F_new, axis=1))
-    print(f"  cosine to the cached features: min {cos.min():.5f}, mean {cos.mean():.5f}; "
-          f"max |d| {np.abs(Fc - F_new).max():.1e}")
-    new, img_new = vision.predict_segments(images, segs, cached, detections=det,
-                                           return_images=True, dinov3=(ids_new, F_new))
-    acols = [c for c in new.columns if c.startswith("a_")]
-    a = img_cached.drop_duplicates("image_id").set_index("image_id")[acols].astype(float)
-    b = img_new.drop_duplicates("image_id").set_index("image_id").loc[a.index, acols].astype(float)
-    clf = vision.load()["dinov3"]
-    flips, n = 0, 0
-    for k in clf.attributes():
-        cs = [f"a_{k}__{c}" for c in clf.codes(k)]
-        flips += int((a[cs].to_numpy().argmax(1) != b[cs].to_numpy().argmax(1)).sum())
-        n += len(a)
-    o = out_cached.set_index("id")[acols].astype(float)
-    s = new.set_index("id").loc[out_cached.id, acols].astype(float)
-    print(f"  image probabilities max |change| {np.abs(a - b).to_numpy().max():.4f}; most likely "
-          f"code flips: {flips} of {n}; segment a_* max |change| "
-          f"{np.abs(o.to_numpy() - s.to_numpy()).max():.4f}")
-    ok = cos.min() >= DINO_COS_MIN
-    print("  DINOv3 from pixels: " + ("WITHIN TOLERANCE" if ok else "OUTSIDE TOLERANCE")
-          + f" (cosine >= {DINO_COS_MIN} required; the cache was made with timm 1.0.25 on a "
-            "CUDA GPU in fp16, batch 32)")
-    return 0 if ok else 1
+        sys.exit(f"--embed-to: {e}")
 
 
 def dinov3_path(dest: Path) -> Path:
@@ -212,15 +130,16 @@ def embed_to(images: pd.DataFrame, image_dir: Path, dest: Path, dinov3: bool):
     from safespeed.vision import embed
     kept = vision.filter_images(images)
     dino = None
-    if dinov3:                              # fail early, before the long CLIP pass
+    print(f"--embed-to: embedding {kept.image_id.nunique()} images from {image_dir} "
+          f"with CLIP ViT-L/14 ({embed.MODEL_ID} @ {embed.REVISION[:12]}) ...")
+    clip = clip_embedder()                  # fail early, before any image is read
+    if dinov3:                              # ... and before the long CLIP pass
         try:
             dino_model = embed.DinoV3Embedder()
         except (ImportError, RuntimeError) as e:
             sys.exit(f"--embed-to: {e}\nInstall requirements-vision.txt (timm is needed for "
                      "DINOv3), or leave out --with-dinov3 to embed with CLIP only.")
-    print(f"--embed-to: embedding {kept.image_id.nunique()} images from {image_dir} "
-          f"with CLIP ViT-L/14 ({embed.MODEL_ID} @ {embed.REVISION[:12]}) ...")
-    ids, E = embed.embed_images(kept, image_dir)
+    ids, E = embed.embed_images(kept, image_dir, clip)
     dest.parent.mkdir(parents=True, exist_ok=True)
     np.savez(dest, ids=np.asarray(ids, dtype=str), emb=E.astype(np.float16))  # float16, like the pipeline's cache; no pickle
     print(f"  saved {len(ids)} embeddings -> {dest}")
@@ -248,7 +167,7 @@ def main() -> int:
     ap.add_argument("--detections", default=str(SAMPLE / "detections.jsonl"),
                     help="Mapillary detections .jsonl ('' for none)")
     ap.add_argument("--image-dir", default=str(SAMPLE / "images"),
-                    help="folder with <image_id>.jpg, for --embed-to and --from-pixels")
+                    help="folder with <image_id>.jpg, for --embed-to")
     ap.add_argument("--output", default=str(HERE / "outputs" / "vision_predictions.csv"),
                     help="per-segment results; the per-image table is written next to it "
                          "(default: outputs/vision_predictions.csv)")
@@ -265,18 +184,7 @@ def main() -> int:
     ap.add_argument("--dinov3-features", default=str(SAMPLE / "dinov3_features.npz"),
                     help="with --with-dinov3: cached DINOv3 features .npz (default: the "
                          "sample's)")
-    ap.add_argument("--from-pixels", action="store_true",
-                    help="also recompute the CLIP embeddings (with --with-dinov3 also the "
-                         "DINOv3 features) from the images and report how far they move the "
-                         "results (tolerance check)")
-    ap.add_argument("--no-thairap", action="store_true",
-                    help="skip the ThaiRAP probes and the DINOv3 classifier; the vision speed "
-                         "model still runs (non-commercial, see weights/vision_thairap/"
-                         "LICENSE.txt) and its predictions are then off-design")
     args = ap.parse_args()
-    thairap = not args.no_thairap
-    if args.with_dinov3 and not thairap:
-        ap.error("--with-dinov3 needs the ThaiRAP-trained weights; leave out --no-thairap")
     use_dino = args.with_dinov3
 
     t0 = time.time()
@@ -292,8 +200,7 @@ def main() -> int:
                 dino = vision.load_dinov3_features(args.dinov3_features)
         det = args.detections or None
         pred, per_img = vision.predict_segments(images, segs, emb, detections=det,
-                                                thairap=thairap, return_images=True,
-                                                dinov3=dino)
+                                                return_images=True, dinov3=dino)
     except vision.VisionInputError as e:
         print(f"error: {e}", file=sys.stderr)
         return 2
@@ -305,10 +212,9 @@ def main() -> int:
         return 2
     out = Path(args.output)
     out.parent.mkdir(parents=True, exist_ok=True)
-    pred.to_csv(out, index=False)
-    per_img.to_csv(out.with_name(out.stem.replace("predictions", "images") + out.suffix)
-                   if "predictions" in out.stem else out.with_name(out.stem + "_images.csv"),
-                   index=False)
+    write_csv(pred, out)                    # float32 columns rounded (safespeed.CSV_DECIMALS)
+    write_csv(per_img, out.with_name(out.stem.replace("predictions", "images") + out.suffix)
+              if "predictions" in out.stem else out.with_name(out.stem + "_images.csv"))
     try:
         shown = os.path.relpath(out)
     except ValueError:                      # another drive on Windows
@@ -325,12 +231,10 @@ def main() -> int:
         is_sample = Path(args.images).resolve() == (SAMPLE / "images.csv").resolve()
         if missing:
             print(f"\ncheck: not in the expected results: {', '.join(map(str, missing[:8]))}")
-        why = "run without the ThaiRAP-trained weights" if not thairap else ""
-        if bad or (missing and is_sample) or why:
+        if bad or (missing and is_sample):
             shown = dict(list(bad.items())[:6])
             more = f" and {len(bad) - len(shown)} more" if len(bad) > len(shown) else ""
-            print(f"\ncheck: FAILED - columns that differ (rows): {shown or '-'}{more}"
-                  + (f" ({why})" if why else ""))
+            print(f"\ncheck: FAILED - columns that differ (rows): {shown or '-'}{more}")
             rc = 1
         else:
             n_emb = sum(c.startswith("v_emb_") for c in pred.columns)
@@ -343,9 +247,6 @@ def main() -> int:
                      f"tolerance {A_TOL:g})." if n_a else
                      ". The DINOv3 classifier was not run; --with-dinov3 adds and checks its "
                      "a_* columns."))
-    if args.from_pixels:
-        rc = max(rc, from_pixels(images, segs, emb, det, pred, per_img,
-                                 Path(args.image_dir), thairap, dino))
     return rc
 
 

@@ -9,10 +9,8 @@ from pathlib import Path
 sys.dont_write_bytecode = True                  # keep the folder free of __pycache__
 HERE = Path(__file__).resolve().parent.parent   # the top folder, with run_inference.py
 sys.path.insert(0, str(HERE))
-from safespeed._assets import require_assets  # noqa: E402
-require_assets(HERE)            # data/ and weights/ come from the Google Drive download
 import pandas as pd  # noqa: E402
-from safespeed import ensemble  # noqa: E402
+from safespeed import ensemble, write_csv  # noqa: E402
 
 # Road pieces (nodes) with their features, and the two graphs that join them.
 G = HERE / "data" / "graph_sample"
@@ -29,5 +27,5 @@ print(segments[["old_id", "n_children", "v85_pred_kmh", "v85_measured"]].round(1
 
 out = HERE / "outputs" / "examples" / "ensemble_segments.csv"
 out.parent.mkdir(parents=True, exist_ok=True)
-segments.to_csv(out, index=False)
+write_csv(segments, out)    # rounds the float32 columns, so every platform writes the same file
 print(f"\nwrote {out.relative_to(HERE)} ({len(segments)} segments, stack '{ens.stack_name}')")

@@ -8,6 +8,5 @@ You may run them to evaluate SafeSpeed. Ask the SafeSpeed team before reusing,
 modifying or redistributing them.
 
 weights/vision_thairap/ and everything trained on its outputs carry their own
-non-commercial terms: see weights/vision_thairap/LICENSE.txt (data/ and weights/
-come from the Google Drive download, README.md "Run it"). Third-party data and
-models keep their own licences (README.md, "Licences").
+non-commercial terms: see weights/vision_thairap/LICENSE.txt. Third-party data
+and models keep their own licences (README.md, "Licences").

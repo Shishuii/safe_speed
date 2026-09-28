@@ -1,0 +1,143 @@
+{
+ "format": "safespeed-stack/1",
+ "stack": "default: the 7 members without the DINOv3 classifier member gbm_c2g_vision_irap",
+ "members": [
+  "gbm_base",
+  "gbm_c2g",
+  "gnn_topological",
+  "gnn_c2g_knn",
+  "gbm_c2g_vision",
+  "gnn_topological_vision",
+  "gnn_c2g_knn_vision"
+ ],
+ "weights": {
+  "gbm_base": 0.10910676848786255,
+  "gbm_c2g": 0.19128731369231364,
+  "gnn_topological": 0.09234727011008877,
+  "gnn_c2g_knn": 0.017630028738152743,
+  "gbm_c2g_vision": 0.31187925344359346,
+  "gnn_topological_vision": 0.21263718623117348,
+  "gnn_c2g_knn_vision": 0.06119302087795213
+ },
+ "intercept": 0.015910981268732898,
+ "rule": "log v85 = intercept + sum(weight[m] * member_log_prediction[m]); weights from one NNLS fit (weights and intercept >= 0) on all rows' out-of-fold member predictions",
+ "note": "Applied to the all-data members shipped here, these weights give in-sample predictions; they do not reproduce the out-of-fold R2, which comes from the per-fold stack of cross-validated members.",
+ "per_fold_weights_oof_diagnostic": {
+  "0": {
+   "gbm_base": 0.0,
+   "gbm_c2g": 0.2513497807960698,
+   "gnn_topological": 0.1734313713707516,
+   "gnn_c2g_knn": 0.0283918644059842,
+   "gbm_c2g_vision": 0.33689330276338714,
+   "gnn_topological_vision": 0.10905586352400805,
+   "gnn_c2g_knn_vision": 0.09365547208342957,
+   "intercept": 0.021661931959009822
+  },
+  "1": {
+   "gbm_base": 0.18677274768532084,
+   "gbm_c2g": 0.1597570878115419,
+   "gnn_topological": 0.023057575462713795,
+   "gnn_c2g_knn": 0.005994492113451585,
+   "gbm_c2g_vision": 0.23366029509336997,
+   "gnn_topological_vision": 0.3008768772464003,
+   "gnn_c2g_knn_vision": 0.08870048055987799,
+   "intercept": 0.0
+  },
+  "2": {
+   "gbm_base": 0.17204823044698359,
+   "gbm_c2g": 0.15422279956809468,
+   "gnn_topological": 0.09438959943390154,
+   "gnn_c2g_knn": 0.034137122773703364,
+   "gbm_c2g_vision": 0.293589361464458,
+   "gnn_topological_vision": 0.23651127723728038,
+   "gnn_c2g_knn_vision": 0.0,
+   "intercept": 0.06711110702121566
+  },
+  "3": {
+   "gbm_base": 0.09418375564408885,
+   "gbm_c2g": 0.1707245532709902,
+   "gnn_topological": 0.139211067549338,
+   "gnn_c2g_knn": 0.0,
+   "gbm_c2g_vision": 0.37070775942116496,
+   "gnn_topological_vision": 0.17860707256234604,
+   "gnn_c2g_knn_vision": 0.04403984189335248,
+   "intercept": 0.010545943731639031
+  },
+  "4": {
+   "gbm_base": 0.1100915632932716,
+   "gbm_c2g": 0.18304788591028043,
+   "gnn_topological": 0.09483910745468212,
+   "gnn_c2g_knn": 0.007431379264064714,
+   "gbm_c2g_vision": 0.3108265703591919,
+   "gnn_topological_vision": 0.16471864516480125,
+   "gnn_c2g_knn_vision": 0.1091817495024411,
+   "intercept": 0.08940442782819422
+  }
+ },
+ "per_fold_weights_note": "DIAGNOSTIC ONLY: the NNLS weights of each cross-validation fold (fitted on the other 4 folds' OOF predictions), used to compute the out-of-fold metrics. Not for inference.",
+ "alternatives": {
+  "with_dinov3": {
+   "stack": "with_dinov3: the default members plus gbm_c2g_vision_irap, the DINOv3 ThaiRAP classifier member; an option, its small gain on Thai road pieces with images is matched by a placebo",
+   "members": [
+    "gbm_base",
+    "gbm_c2g",
+    "gnn_topological",
+    "gnn_c2g_knn",
+    "gbm_c2g_vision",
+    "gnn_topological_vision",
+    "gnn_c2g_knn_vision",
+    "gbm_c2g_vision_irap"
+   ],
+   "weights": {
+    "gbm_base": 0.1060691156894172,
+    "gbm_c2g": 0.16515060625324254,
+    "gnn_topological": 0.09466171705533052,
+    "gnn_c2g_knn": 0.01819645288784926,
+    "gbm_c2g_vision": 0.2188212738666063,
+    "gnn_topological_vision": 0.20900048131519341,
+    "gnn_c2g_knn_vision": 0.059467101362209715,
+    "gbm_c2g_vision_irap": 0.1250535742386585
+   },
+   "intercept": 0.014406046680922501,
+   "rule": "as above, over these members"
+  },
+  "without_images": {
+   "stack": "without_images: the 4 members with no image features",
+   "members": [
+    "gbm_base",
+    "gbm_c2g",
+    "gnn_topological",
+    "gnn_c2g_knn"
+   ],
+   "weights": {
+    "gbm_base": 0.18316927567532099,
+    "gbm_c2g": 0.4504107430051427,
+    "gnn_topological": 0.249712262002302,
+    "gnn_c2g_knn": 0.11619341822778145
+   },
+   "intercept": 0.0,
+   "rule": "as above, over these members"
+  }
+ },
+ "provenance": {
+  "versions": {
+   "numpy": "2.2.6",
+   "pandas": "3.0.2",
+   "scipy": "1.15.3",
+   "sklearn": "1.8.0",
+   "torch": "2.9.0+cu128",
+   "torch_geometric": "2.8.0",
+   "city2graph": "0.4.0",
+   "torch.version.cuda": "12.8",
+   "cuda_device": "NVIDIA GeForce RTX 2080 Ti",
+   "python": "3.11.9"
+  },
+  "sha256": {
+   "scripts/train_ensemble_vision.py": "08a5fd64b7c4ffad943d85fd1b31a85867c2c73375795a5602eb698e85c5c952",
+   "cv_protocol_script": "5be9ff830ad315c24ab0e9bafe35e50de9222d564bbadefe95b00b6b737f229f",
+   "scripts/train_irap_classifier.py": "48d5365c2f7ea52e801b722afe9c36bbfb8ba13f030fac779507fe0b36195cef",
+   "data/external/vision/irap_heads_dinov3_l.npz": "4a3d070f0cfe7b1b8881bb245fd57d7272253841442719e5fb65714c23daa1f2",
+   "data/external/vision/irap_scores_thb_dinov3_l.parquet": "2b43ddc8c16ee8ead0f013f41c9f511306374d4c829f8d2f0ea6689821f10e05"
+  }
+ }
+}

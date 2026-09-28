@@ -21,8 +21,6 @@ HERE = Path(__file__).resolve().parent
 SAMPLE = HERE / "data" / "sample_segments.csv"
 EXPECTED = HERE / "data" / "expected_predictions.csv"
 sys.path.insert(0, str(HERE))
-from safespeed._assets import require_assets  # noqa: E402
-require_assets(HERE)            # data/ and weights/ come from the Google Drive download
 import safespeed  # noqa: E402
 
 
@@ -86,7 +84,7 @@ def main() -> int:
         out = safespeed.predict(df)
         secs = time.time() - t0
         Path(args.output).parent.mkdir(parents=True, exist_ok=True)
-        out.to_csv(args.output, index=False)
+        safespeed.write_csv(out, args.output)
     except safespeed.InputError as e:
         msg = str(e)
         if "missing required columns" in msg and len(df.columns) == 1 and ";" in df.columns[0]:

@@ -1,0 +1,45 @@
+{
+ "format": "safespeed-injury-curves/1",
+ "description": "P(killed or seriously injured) = 1 / (1 + exp(-(b0 + speed * v + age * reference_age))), v = closing_factor[crash_type] x travel speed (km/h), coefficients of the road user crash_user[crash_type].",
+ "outcome": "MAIS3+F (killed or seriously injured)",
+ "reference_age": 45.0,
+ "crash_user": {
+  "vru_ped": "pedestrian",
+  "vru_cycle": "cyclist",
+  "vru_ptw": "motorcyclist",
+  "side_impact": "car_occupant",
+  "head_on": "car_occupant",
+  "motorway": "car_occupant"
+ },
+ "closing_factor": {
+  "vru_ped": 1.0,
+  "vru_cycle": 1.0,
+  "vru_ptw": 1.0,
+  "side_impact": 1.0,
+  "head_on": 2.0,
+  "motorway": 1.0
+ },
+ "coefficients": {
+  "pedestrian": {
+   "b0": -6.19,
+   "speed": 0.078,
+   "age": 0.038
+  },
+  "cyclist": {
+   "b0": -7.467,
+   "speed": 0.079,
+   "age": 0.047
+  },
+  "motorcyclist": {
+   "b0": -4.555,
+   "speed": 0.04,
+   "age": 0.011
+  },
+  "car_occupant": {
+   "b0": -7.654,
+   "speed": 0.041,
+   "age": 0.021
+  }
+ },
+ "source": "Lubbe, Wu & Jeppsson (2022), Traffic Safety Research 2:000006, doi:10.55329/vfma7555"
+}

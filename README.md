@@ -5,10 +5,10 @@
 SafeSpeed checks whether a road's posted speed limit is survivable for the people
 who use it. It was built for the *AI for Safer Roads 2026* Innovation Challenge
 (Asian Development Bank / Agilysis) on the road networks of Maharashtra (India) and
-Thailand. This repository holds the code, examples and results of its three trained
-models; their weights and sample inputs are a separate download from Google Drive.
-All three run on an ordinary CPU with Python, numpy and pandas, with no GPU,
-internet connection or pickle files.
+Thailand. This repository holds its three trained models: the code, the trained
+weights, sample inputs with their expected results, the sample runs' results and
+examples. All three run on an ordinary CPU with Python, numpy and pandas, with no
+GPU, internet connection or pickle files.
 
 1. **Design-speed model** (`run_inference.py`, both networks): the speed a road's layout and surroundings invite, what drives it, and the expected harm at that speed. It feeds the SafeSpeed priority score.
 2. **Vision model** (`run_vision.py`, Thailand): the same from street images alone, plus the survivable speed for the road the images show.
@@ -27,19 +27,12 @@ internet connection or pickle files.
 
 ## Run it
 
-Get the code:
+Clone the repository (about 15 MB, weights and sample data included), install
+numpy and pandas and run the three checks:
 
 ```bash
 git clone https://github.com/Shishuii/safe_speed.git
 cd safe_speed
-```
-
-Get the data and weights: download **`SafeSpeed_data_weights.zip`** (about 12 MB unzipped) from the
-[Google Drive folder](https://drive.google.com/drive/folders/1j-Lf5c8Cs0SkGGhmWzDX-TC30KZAR8ni) and unzip it in the `safe_speed` folder, so that
-`data/` and `weights/` sit next to `run_inference.py`. Then install numpy and pandas
-and run the three checks:
-
-```bash
 python3 -m venv .venv
 source .venv/bin/activate                    # Windows: .venv\Scripts\activate
 python -m pip install -r requirements.txt    # numpy and pandas
@@ -57,8 +50,9 @@ python run_ensemble.py --check
 
 `--check` compares every result with the full SafeSpeed pipeline's results for the
 same rows and prints `check: PASSED` when they match (float32 parts within a printed
-tolerance). `outputs/` already holds these results. Tested on Python 3.9 to 3.14,
-numpy 1.22 to 2.5 and pandas 1.4 to 3.0.
+tolerance). `outputs/` already holds these results, and the commands above rewrite them
+byte for byte. Tested on Python 3.9 to 3.14, numpy 1.22 to 2.5 and
+pandas 1.4 to 3.0.
 
 The ensemble runs 7 members by default. Two other stacks are included, and
 `--vision-from-images` checks that models 2 and 3 chain:
@@ -114,7 +108,7 @@ from the road lines.
 ## What is in the folder
 
 ```
-safe_speed/                            the GitHub repository, about 3 MB
+safe_speed/                            the GitHub repository
 ├── README.md, COLUMNS.md              this guide; every input and output column
 ├── LICENSE.txt                        terms for the code and weights
 ├── SafeSpeed_Methodology_Report.pdf   method, checks and results
@@ -122,18 +116,18 @@ safe_speed/                            the GitHub repository, about 3 MB
 ├── run_inference.py, run_vision.py, run_ensemble.py
 ├── examples/                          three short Python examples
 ├── safespeed/                         model code (numpy and pandas)
-├── weights/                           from the Google Drive download
+├── weights/                           trained weights
 │   ├── design_speed_trees.json        model 1: 4 tree ensembles
 │   ├── injury_curves.json             injury-risk curves (models 1 and 2)
 │   ├── vision/                        model 2: probes, PCA, speed trees, rules
 │   ├── vision_thairap/                ThaiRAP-trained probes and DINOv3 classifier, with their licences
 │   └── ensemble/                      model 3: 8 members, stacks, input rules, MODEL_CARD.md
-├── data/                              from the Google Drive download
+├── data/                              sample inputs and expected results
 │   ├── sample_segments.csv            model 1 sample input
 │   ├── expected_predictions.csv       its expected results
 │   ├── vision_sample/                 7 Mapillary images, detections, embeddings, expected results
 │   └── graph_sample/                  206 road pieces, two edge lists, expected results
-└── outputs/                           results of the runs above; examples/ holds the examples' results
+└── outputs/                           results of the three runs above (the examples write to outputs/examples/)
 ```
 
 `data/` holds samples only. The inputs and results for the full networks are built

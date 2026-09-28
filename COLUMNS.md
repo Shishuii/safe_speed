@@ -2,6 +2,12 @@
 
 The sample files in `data/` have every input column and can be copied as templates.
 
+When results are written to CSV (`safespeed.write_csv`), the columns that come from
+float32 arithmetic are rounded, because their last digits vary with the numpy version
+and the processor: `pred_*` and `contrib_*` to 4 decimal places, km/h columns
+(`*_kmh`) to 2, and `v_emb_*` and `a_*` to 5. Every platform then
+writes the same file. The Python functions return these columns unrounded.
+
 ## 1 · Design-speed model
 
 **Input**: one row per road segment (`data/sample_segments.csv`). Required columns

@@ -7,7 +7,7 @@ weights/vision/vision_config.json.
 Per image
   * ThaiRAP probe codes -> v_roadside_dist, v_roadside_severe,
     v_roadside_barrier, v_shoulder, v_access, v_skid, v_unsealed, v_lighting,
-    v_calming, v_service_road (NaN when the ThaiRAP weights are not used)
+    v_calming, v_service_road
   * OSM probes -> v_divided (P >= 0.5), v_undivided = 1 - v_divided, v_lanes
   * Mapillary detections -> v_ped_seen / v_ped_count, v_moto_seen /
     v_moto_count, v_bicycle_seen, v_sidewalk, v_crossing, v_intersection.

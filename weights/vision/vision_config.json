@@ -1,0 +1,405 @@
+{
+ "format": "safespeed-vision-config/1",
+ "embedding": {
+  "model_id": "openai/clip-vit-large-patch14",
+  "revision": "32bd64288804d66eefd0ccbe215aa642df71cc41",
+  "dim": 768,
+  "output": "get_image_features (image projection), L2-normalised",
+  "stored_dtype": "float16",
+  "batch": 64,
+  "precision": "fp16 on CUDA, fp32 on CPU",
+  "preprocessing": "CLIPProcessor: shortest side 224 (bicubic), centre crop 224x224, mean [0.48145466, 0.4578275, 0.40821073], std [0.26862954, 0.26130258, 0.27577711]",
+  "panorama": {
+   "fov_deg": 100.0,
+   "pitch_deg": 0.0,
+   "out_w": 1024,
+   "out_h": 768,
+   "yaw": "nearer road direction to the panorama centre"
+  }
+ },
+ "image_filter": {
+  "max_distance_m": 40.0,
+  "max_heading_diff_deg": 45.0,
+  "min_capture_year": 2010,
+  "panoramas_always_kept": true,
+  "point_spacing_m": 500.0,
+  "road_bearing_window_m": 25.0,
+  "training_funnel": {
+   "points": 120943,
+   "points_with_image": 63477,
+   "after_date": 63458,
+   "after_distance": 52500,
+   "after_file_exists": 52500,
+   "after_heading": 47669,
+   "segments": 6458,
+   "unique_images": 45294,
+   "panoramas": 2205
+  }
+ },
+ "thairap_features": {
+  "v_roadside_dist": {
+   "op": "min_mapped",
+   "attrs": [
+    "roadside_dist_ds",
+    "roadside_dist_ps"
+   ],
+   "map": {
+    "1": 0,
+    "2": 1,
+    "3": 2,
+    "4": 3
+   }
+  },
+  "v_roadside_severe": {
+   "op": "any_in",
+   "attrs": [
+    "roadside_obj_ds",
+    "roadside_obj_ps"
+   ],
+   "codes": [
+    5,
+    6,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    15,
+    16
+   ]
+  },
+  "v_roadside_barrier": {
+   "op": "any_in",
+   "attrs": [
+    "roadside_obj_ds",
+    "roadside_obj_ps"
+   ],
+   "codes": [
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  "v_shoulder": {
+   "op": "mean_mapped",
+   "attrs": [
+    "paved_shoulder_ds",
+    "paved_shoulder_ps"
+   ],
+   "map": {
+    "4": 0,
+    "3": 1,
+    "2": 2,
+    "1": 3
+   }
+  },
+  "v_access": {
+   "op": "mapped",
+   "attrs": [
+    "property_access"
+   ],
+   "map": {
+    "4": 0,
+    "3": 1,
+    "2": 2,
+    "1": 3
+   }
+  },
+  "v_skid": {
+   "op": "mapped",
+   "attrs": [
+    "skid_resistance"
+   ],
+   "map": {
+    "1": 0,
+    "2": 1,
+    "3": 2,
+    "4": 3,
+    "5": 4
+   }
+  },
+  "v_unsealed": {
+   "op": "in",
+   "attrs": [
+    "skid_resistance"
+   ],
+   "codes": [
+    4,
+    5
+   ]
+  },
+  "v_lighting": {
+   "op": "in",
+   "attrs": [
+    "street_lighting"
+   ],
+   "codes": [
+    2
+   ]
+  },
+  "v_calming": {
+   "op": "in",
+   "attrs": [
+    "traffic_calming"
+   ],
+   "codes": [
+    2
+   ]
+  },
+  "v_service_road": {
+   "op": "in",
+   "attrs": [
+    "service_road"
+   ],
+   "codes": [
+    2
+   ]
+  }
+ },
+ "detections": {
+  "source": "Mapillary hosted detections, one entry per detected instance",
+  "classes": {
+   "person": [
+    "human--person"
+   ],
+   "moto": [
+    "human--rider--motorcyclist"
+   ],
+   "bicycle": [
+    "human--rider--bicyclist"
+   ],
+   "sidewalk": [
+    "construction--flat--sidewalk"
+   ],
+   "crossing": [
+    "construction--flat--crosswalk-plain",
+    "marking--discrete--crosswalk-zebra"
+   ],
+   "traffic_light": [
+    "object--traffic-light"
+   ]
+  },
+  "match": "class name starts with one of the prefixes",
+  "features": {
+   "v_ped_seen": [
+    "seen",
+    "person"
+   ],
+   "v_ped_count": [
+    "count",
+    "person"
+   ],
+   "v_moto_seen": [
+    "seen",
+    "moto"
+   ],
+   "v_moto_count": [
+    "count",
+    "moto"
+   ],
+   "v_bicycle_seen": [
+    "seen",
+    "bicycle"
+   ],
+   "v_sidewalk": [
+    "seen",
+    "sidewalk"
+   ],
+   "v_crossing": [
+    "seen",
+    "crossing"
+   ],
+   "v_intersection": [
+    "seen",
+    "traffic_light"
+   ]
+  },
+  "no_detections": "NaN (no detector run is not evidence of absence)"
+ },
+ "osm_probes": {
+  "divided": {
+   "output": "P(divided carriageway)",
+   "v_divided": "P >= 0.5",
+   "v_undivided": "1 - v_divided",
+   "label": "OSM one-way pair (oneway >= 0.5 on the linked TomTom segments)"
+  },
+  "lanes": {
+   "output": "expected lane count, classes 1-4",
+   "v_lanes": "the expectation",
+   "label": "OSM lanes where tagged, rounded, clipped 1-4"
+  },
+  "fold_rule": "an image takes the fold (50 km spatial block) of its first segment in the worklist; blank osm_fold = all-data refit"
+ },
+ "pca": {
+  "n_components": 32,
+  "explained_variance": 0.6745,
+  "segment_value": "mean over the segment's (point, image) rows"
+ },
+ "columns": {
+  "ref": [
+   "v_divided",
+   "v_median_barrier",
+   "v_median_wide",
+   "v_undivided",
+   "v_oneway",
+   "v_ped_seen",
+   "v_ped_count",
+   "v_sidewalk",
+   "v_crossing",
+   "v_moto_seen",
+   "v_moto_count",
+   "v_moto_facility",
+   "v_bicycle_seen",
+   "v_intersection",
+   "v_urban",
+   "v_school",
+   "v_divided_any",
+   "v_ped_seen_any",
+   "v_sidewalk_any",
+   "v_crossing_any",
+   "v_moto_seen_any",
+   "v_bicycle_seen_any",
+   "v_intersection_any",
+   "v_school_any",
+   "v_undivided_any"
+  ],
+  "design": [
+   "v_lanes",
+   "v_lane_width",
+   "v_curvature",
+   "v_grade",
+   "v_shoulder",
+   "v_roadside_dist",
+   "v_roadside_severe",
+   "v_roadside_barrier",
+   "v_road_condition",
+   "v_skid",
+   "v_unsealed",
+   "v_delineation_poor",
+   "v_lighting",
+   "v_calming",
+   "v_parking",
+   "v_access",
+   "v_landuse_built",
+   "v_landuse_commercial",
+   "v_landuse_rural",
+   "v_service_road",
+   "v_rumble",
+   "v_ped_fencing",
+   "v_roadworks",
+   "v_sight_poor"
+  ],
+  "emb": [
+   "v_emb_00",
+   "v_emb_01",
+   "v_emb_02",
+   "v_emb_03",
+   "v_emb_04",
+   "v_emb_05",
+   "v_emb_06",
+   "v_emb_07",
+   "v_emb_08",
+   "v_emb_09",
+   "v_emb_10",
+   "v_emb_11",
+   "v_emb_12",
+   "v_emb_13",
+   "v_emb_14",
+   "v_emb_15",
+   "v_emb_16",
+   "v_emb_17",
+   "v_emb_18",
+   "v_emb_19",
+   "v_emb_20",
+   "v_emb_21",
+   "v_emb_22",
+   "v_emb_23",
+   "v_emb_24",
+   "v_emb_25",
+   "v_emb_26",
+   "v_emb_27",
+   "v_emb_28",
+   "v_emb_29",
+   "v_emb_30",
+   "v_emb_31"
+  ],
+  "meta": [
+   "v_n_images",
+   "v_n_forward",
+   "v_n_evidence",
+   "v_n_points",
+   "v_coverage_frac",
+   "v_capture_year",
+   "v_model",
+   "v_prompt_hash"
+  ],
+  "any": [
+   "v_divided",
+   "v_ped_seen",
+   "v_sidewalk",
+   "v_crossing",
+   "v_moto_seen",
+   "v_bicycle_seen",
+   "v_intersection",
+   "v_school",
+   "v_undivided"
+  ]
+ },
+ "v_model": "clip-vit-large-patch14 + probes",
+ "v_prompt_hash": "deaf9f352e1e",
+ "rung": {
+  "order": [
+   "vru_ped",
+   "vru_cycle",
+   "vru_ptw",
+   "side_impact",
+   "head_on",
+   "motorway"
+  ],
+  "rules": {
+   "ped_share": 0.25,
+   "urban_share": 0.5,
+   "cycle_share": 0.25,
+   "divided_share": 0.8,
+   "separation_share": 0.8,
+   "head_on_share": 0.5
+  },
+  "absence_images": 10,
+  "min_images_confident": 3,
+  "thresholds": {
+   "vru_ped": {
+    "speed": 30.0,
+    "title": "People on foot mix with traffic",
+    "user": "pedestrian"
+   },
+   "vru_cycle": {
+    "speed": 40.0,
+    "title": "Cyclists mix with traffic",
+    "user": "cyclist"
+   },
+   "vru_ptw": {
+    "speed": 45.0,
+    "title": "Motorcycles mix with traffic",
+    "user": "motorcyclist"
+   },
+   "side_impact": {
+    "speed": 50.0,
+    "title": "At-grade intersections \u2014 side impact possible",
+    "user": "car_occupant"
+   },
+   "head_on": {
+    "speed": 55.0,
+    "title": "Undivided two-way \u2014 head-on possible",
+    "user": "car_occupant"
+   },
+   "motorway": {
+    "speed": 100.0,
+    "title": "Divided, access-controlled \u2014 no vulnerable road users",
+    "user": "car_occupant"
+   }
+  },
+  "basis": "30/40/45/55 km/h inverted from Lubbe, Wu & Jeppsson (2022) at 10 % KSI risk, age 45; side impact 50 and motorway 100 are policy values"
+ }
+}

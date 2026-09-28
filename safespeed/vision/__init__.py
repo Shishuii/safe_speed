@@ -45,7 +45,6 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from ..harm import harm_from_v50_v85  # noqa: F401  (re-exported for convenience)
 from . import aggregate as A
 from .classifier import DinoV3Classifier, segment_means
 from .probes import OSMProbes, ThaiRAPProbes
@@ -62,31 +61,18 @@ class VisionInputError(ValueError):
 _cache: dict = {}
 
 
-def load(weights_dir: Path = WEIGHTS_DIR, thairap: bool = True) -> dict:
-    """Load the vision weights once. `thairap=False` skips everything trained on
-    ThaiRAP labels (non-commercial): the ThaiRAP probes (their 10 features are
-    then blank, and the speed model runs on a design it was not trained with;
-    predictions will differ) and the DINOv3 classifier (no a_* columns). The
-    classifier's heads are optional: without dinov3_heads.npz everything else
-    runs."""
-    key = (str(weights_dir), thairap)
+def load(weights_dir: Path = WEIGHTS_DIR) -> dict:
+    """Load the vision weights once. The DINOv3 classifier's heads are optional:
+    without dinov3_heads.npz everything else runs."""
+    key = str(weights_dir)
     if key not in _cache:
         wd = Path(weights_dir)
         vd = wd / "vision"
         cfg = json.loads((vd / "vision_config.json").read_text())
         pca = np.load(vd / "pca.npz", allow_pickle=False)
-        tr_path = wd / "vision_thairap" / "thairap_probes.npz"
+        tr = ThaiRAPProbes(wd / "vision_thairap" / "thairap_probes.npz")
         dn_path = wd / "vision_thairap" / "dinov3_heads.npz"
-        tr = dn = None
-        if thairap:
-            if not tr_path.exists():
-                raise FileNotFoundError(
-                    f"{tr_path} is missing. The files in vision_thairap/ are trained on ThaiRAP "
-                    "labels (non-commercial); pass thairap=False to run without them (the "
-                    "ThaiRAP features are then blank and the speed predictions will not match "
-                    "the trained model).")
-            tr = ThaiRAPProbes(tr_path)
-            dn = DinoV3Classifier(dn_path) if dn_path.exists() else None
+        dn = DinoV3Classifier(dn_path) if dn_path.exists() else None
         _cache[key] = {
             "cfg": cfg, "thairap": tr, "dinov3": dn, "osm": OSMProbes(vd / "osm_probes.npz"),
             "pca_mean": pca["mean"], "pca_components": pca["components"],
@@ -126,12 +112,12 @@ def load_dinov3_features(path) -> tuple[np.ndarray, np.ndarray]:
 def filter_images(images: pd.DataFrame, weights_dir: Path = WEIGHTS_DIR) -> pd.DataFrame:
     """The images the model uses (date, distance and heading filter), as the
     pipeline selected them. Embed these rows, not the unfiltered table."""
-    return A.filter_images(images, load(weights_dir, thairap=False)["cfg"])[0]
+    return A.filter_images(images, load(weights_dir)["cfg"])[0]
 
 
 # ---------------------------------------------------------------- per image
 def predict_images(images: pd.DataFrame, embeddings, detections=None,
-                   weights_dir: Path = WEIGHTS_DIR, thairap: bool = True, dinov3=None):
+                   weights_dir: Path = WEIGHTS_DIR, dinov3=None):
     """Per-image outputs. Returns (per-image table, projected embeddings
     for every row of `embeddings`, embedding ids).
 
@@ -139,7 +125,7 @@ def predict_images(images: pd.DataFrame, embeddings, detections=None,
     one call (as the pipeline does), then the images in `images` are selected.
     `dinov3` = (ids, features) adds the classifier's float32 a_* probabilities.
     """
-    W = load(weights_dir, thairap)
+    W = load(weights_dir)
     cfg = W["cfg"]
     ids, E = embeddings
     ids = np.asarray(ids).astype(str)
@@ -157,11 +143,8 @@ def predict_images(images: pd.DataFrame, embeddings, detections=None,
 
     per = pd.DataFrame({"image_id": ids})
     # ThaiRAP probes -> codes -> features
-    if W["thairap"] is not None:
-        codes = pd.DataFrame(W["thairap"].codes(E))
-        codes.insert(0, "image_id", ids)
-    else:
-        codes = pd.DataFrame({"image_id": ids})
+    codes = pd.DataFrame(W["thairap"].codes(E))
+    codes.insert(0, "image_id", ids)
     feats = A.thairap_features(codes, cfg)
     # detections
     det_cols = list(cfg["detections"]["features"])
@@ -187,9 +170,8 @@ def predict_images(images: pd.DataFrame, embeddings, detections=None,
     feats["v_undivided"] = 1.0 - feats["v_divided"]
     feats["v_lanes"] = feats.pop("v_lanes_osmprobe")
     feats["osm_model"] = np.where(fold >= 0, [f"fold {k}" for k in fold], "all-data refit")
-    if W["thairap"] is not None:
-        for a in W["thairap"].attributes:
-            feats[f"thairap_{a}"] = codes[a].to_numpy()
+    for a in W["thairap"].attributes:
+        feats[f"thairap_{a}"] = codes[a].to_numpy()
     if W["dinov3"] is not None and dinov3 is not None:
         feats = feats.merge(classify_images(images, dinov3, W["dinov3"]), on="image_id",
                             how="left")
@@ -303,8 +285,7 @@ def output_columns(cfg: dict, groups, classifier: DinoV3Classifier | None = None
 
 def predict_segments(images: pd.DataFrame, segments: pd.DataFrame | None, embeddings,
                      detections=None, weights_dir: Path = WEIGHTS_DIR,
-                     thairap: bool = True, apply_filter: bool = True,
-                     return_images: bool = False, dinov3=None):
+                     apply_filter: bool = True, return_images: bool = False, dinov3=None):
     """Per-segment vision features, rung, invited speeds, attribution and harm.
 
     images      one row per (segment point, image); see read_images_csv
@@ -316,12 +297,11 @@ def predict_segments(images: pd.DataFrame, segments: pd.DataFrame | None, embedd
                 can never be reached)
     dinov3      (ids, float32 DINOv3 features), e.g. load_dinov3_features(...), to add
                 the classifier's a_* columns; None (the default) leaves them out.
-                They need the ThaiRAP-trained weights (thairap=True).
     """
-    W = load(weights_dir, thairap)
+    W = load(weights_dir)
     cfg = W["cfg"]
     check_inputs(images, segments, W["speed"].country)
-    if dinov3 is not None and thairap and W["dinov3"] is None:
+    if dinov3 is not None and W["dinov3"] is None:
         raise VisionInputError("DINOv3 features were given, but weights/vision_thairap/"
                                "dinov3_heads.npz is missing")
     img = images.copy()
@@ -340,7 +320,7 @@ def predict_segments(images: pd.DataFrame, segments: pd.DataFrame | None, embedd
     if "country" not in seg_in.columns:
         seg_in["country"] = "TH"
 
-    feats, Z, ids = predict_images(img, embeddings, detections, weights_dir, thairap, dinov3)
+    feats, Z, ids = predict_images(img, embeddings, detections, weights_dir, dinov3=dinov3)
     keep = [c for c in feats.columns if c.startswith("v_") or c == "image_id"]
     emb = A.segment_embeddings(img, ids, Z, cfg["columns"]["emb"])
     pts = (pd.to_numeric(seg_in.set_index("id")["v_n_points"], errors="coerce")

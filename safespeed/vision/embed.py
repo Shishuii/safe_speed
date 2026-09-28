@@ -12,11 +12,8 @@ projection (`get_image_features`), float16 on a GPU, float32 on a CPU, batches
 of 64. A panorama is first cropped to a 1024 x 768 perspective view (100 degree
 field of view, level horizon) facing along the road.
 
-Recomputed embeddings are NOT bit-identical to the cached ones in general. The
-cache was made with transformers 4.57 on a CUDA GPU in fp16, batch 64; other
-library versions, a CPU, or another batch size change the vectors slightly
-(measured: cosine >= 0.9997, and about 0.5 % of ThaiRAP probe codes flip on
-random images). Treat a recomputation as a tolerance check, not an exact one.
+Re-embedded images differ slightly from the cached vectors, which were made on a
+GPU in fp16; other library versions, devices or batch sizes change the last digits.
 
 DINOv3 features (for the ThaiRAP classifier, safespeed/vision/classifier.py)
 need torch and timm >= 1.0.20 and download the backbone from Hugging Face
@@ -28,8 +25,7 @@ the backbone runs under fp16 autocast on a GPU (fp32 on a CPU), batches of 32.
 Five views of its output tokens are pooled and concatenated (5 x 1,024): the
 first token, the mean of all patch tokens, and the mean of the left, centre and
 right thirds of the patch grid. The features are stored as float16, as the
-pipeline cached them. The same caveat applies: a recomputation is a tolerance
-check.
+pipeline cached them, and recomputed features differ slightly in the same way.
 """
 from __future__ import annotations
 
@@ -98,19 +94,25 @@ class Embedder:
     def __init__(self, device: str | None = None, revision: str = REVISION):
         try:
             import torch
+            from PIL import Image  # noqa: F401  (the images are read with Pillow)
             from transformers import CLIPModel, CLIPProcessor
-        except ImportError as e:            # pragma: no cover
-            raise ImportError("recomputing embeddings needs torch and transformers: "
-                              "pip install torch transformers") from e
+        except ImportError as e:
+            raise ImportError(f"embedding images needs Pillow, torch and transformers ({e}): "
+                              "pip install -r requirements-vision.txt") from e
         self.torch = torch
         self.dev = device or ("cuda" if torch.cuda.is_available() else "cpu")
         self.dtype = torch.float16 if self.dev.startswith("cuda") else torch.float32
         import transformers
         major, minor = (int(x) for x in transformers.__version__.split(".")[:2])
         kw = "dtype" if (major, minor) >= (4, 56) else "torch_dtype"   # renamed in 4.56
-        model = CLIPModel.from_pretrained(MODEL_ID, revision=revision, **{kw: self.dtype})
+        try:
+            model = CLIPModel.from_pretrained(MODEL_ID, revision=revision, **{kw: self.dtype})
+            self.proc = CLIPProcessor.from_pretrained(MODEL_ID, revision=revision)
+        except Exception as e:  # noqa: BLE001 - download or network problems
+            raise RuntimeError(f"could not load the CLIP backbone {MODEL_ID} at revision "
+                               f"{revision[:12]} ({type(e).__name__}: {e}). It is downloaded from "
+                               "Hugging Face (about 1.7 GB) on first use.") from e
         self.model = model.to(self.dev).eval()
-        self.proc = CLIPProcessor.from_pretrained(MODEL_ID, revision=revision)
 
     def __call__(self, images, batch: int = 64) -> np.ndarray:
         """`images`: a list of PIL images. Returns float16 (n x 768), L2-normalised."""

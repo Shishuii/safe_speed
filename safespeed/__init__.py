@@ -2,6 +2,7 @@
 
     import safespeed
     pred = safespeed.predict(safespeed.read_csv("data/sample_segments.csv"))
+    safespeed.write_csv(pred, "my_predictions.csv")
 
 `predict` takes one row per road segment (columns in INPUT_COLUMNS) and returns
 the predicted median (v50) and 85th-percentile (v85) speed, the exact
@@ -81,6 +82,34 @@ def read_csv(path) -> pd.DataFrame:
     few km/h.
     """
     return pd.read_csv(path, float_precision="round_trip", dtype={"id": str, "name": str})
+
+
+#: Decimal places kept when results are written to CSV (write_csv), by column name: a
+#: key that starts with "_" matches the end of a name, any other key its start. These
+#: columns come from float32 arithmetic (the ensemble's graph networks, the CLIP
+#: embedding components v_emb_*, the DINOv3 classifier scores a_*), whose last digits
+#: change with the numpy version and the processor. Rounded like this, every platform
+#: writes the same file. Other columns keep every digit, and the Python functions
+#: return every column unrounded.
+CSV_DECIMALS = {"pred_": 4, "contrib_": 4, "_kmh": 2, "v_emb_": 5, "a_": 5}
+
+
+def _csv_decimals(column) -> int | None:
+    name = str(column)
+    for key, n in CSV_DECIMALS.items():
+        if name.endswith(key) if key.startswith("_") else name.startswith(key):
+            return n
+    return None
+
+
+def write_csv(df: pd.DataFrame, path) -> None:
+    """Write a results table to CSV, with the float32 columns rounded (CSV_DECIMALS)."""
+    out = df.copy()
+    for c in out.columns:
+        n = _csv_decimals(c)
+        if n is not None and pd.api.types.is_float_dtype(out[c]):
+            out[c] = out[c].astype("float64").round(n) + 0.0     # + 0.0 turns -0.0 into 0.0
+    out.to_csv(path, index=False)
 
 
 def _ids(d: pd.DataFrame, mask) -> str:

@@ -1,0 +1,56 @@
+{
+ "format": "safespeed-ensemble-inputs/1",
+ "countries": [
+  "MH",
+  "TH"
+ ],
+ "coverage": {
+  "MH": {
+   "lat": [
+    15.12835,
+    22.145952
+   ],
+   "lon": [
+    72.20584363636364,
+    80.98066125
+   ]
+  },
+  "TH": {
+   "lat": [
+    5.2476424999999995,
+    20.885873333333336
+   ],
+   "lon": [
+    97.41162888888888,
+    106.04375777777778
+   ]
+  }
+ },
+ "never_blank": [
+  "posted_limit",
+  "frc",
+  "length_log",
+  "pop_log",
+  "pop_density_log",
+  "geo_sinuosity",
+  "geo_curvature",
+  "geo_turn_sharp",
+  "geo_junction_density",
+  "lat",
+  "lon",
+  "country_TH",
+  "c2g_dual_degree",
+  "c2g_dual_clustering",
+  "c2g_pagerank",
+  "c2g_betweenness",
+  "c2g_ego_size",
+  "c2g_knn_dist_mean",
+  "c2g_radius_count",
+  "c2g_emst_degree",
+  "c2g_delaunay_degree",
+  "c2g_gabriel_degree",
+  "c2g_rng_degree",
+  "has_vision"
+ ],
+ "rule": "nodes.csv needs tt_id, old_id, country, sample_size and every feature of the chosen stack's members; the never_blank columns may not be blank, the others may (a blank is NaN); tt_id may not be blank, old_id may (a road piece outside the scored segments); country must be one of countries, and lat/lon must lie in that country's coverage box"
+}

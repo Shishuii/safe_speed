@@ -9,9 +9,7 @@ from pathlib import Path
 sys.dont_write_bytecode = True                  # keep the folder free of __pycache__
 HERE = Path(__file__).resolve().parent.parent   # the top folder, with run_inference.py
 sys.path.insert(0, str(HERE))
-from safespeed._assets import require_assets  # noqa: E402
-require_assets(HERE)            # data/ and weights/ come from the Google Drive download
-from safespeed import vision  # noqa: E402
+from safespeed import vision, write_csv  # noqa: E402
 
 S = HERE / "data" / "vision_sample"
 images = vision.read_images_csv(S / "images.csv")         # one row per image: where, when, which way
@@ -30,5 +28,5 @@ for road in pred.itertuples():
 
 out = HERE / "outputs" / "examples" / "vision.csv"
 out.parent.mkdir(parents=True, exist_ok=True)
-pred.to_csv(out, index=False)
+write_csv(pred, out)    # rounds the float32 columns, so every platform writes the same file
 print(f"\nwrote {out.relative_to(HERE)} ({len(pred)} segments)")

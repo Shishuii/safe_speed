@@ -34,9 +34,7 @@ HERE = Path(__file__).resolve().parent
 SAMPLE = HERE / "data" / "graph_sample"
 VSAMPLE = HERE / "data" / "vision_sample"
 sys.path.insert(0, str(HERE))
-from safespeed._assets import require_assets  # noqa: E402
-require_assets(HERE)            # data/ and weights/ come from the Google Drive download
-from safespeed import ensemble  # noqa: E402
+from safespeed import ensemble, write_csv  # noqa: E402
 
 TOL = 1e-5            # relative, for GNN members, the stack and km/h (float32 networks)
 EMB_TOL = 1e-6        # v_emb_* from the image route are float32 PCA scores (see run_vision.py)
@@ -220,7 +218,11 @@ def main() -> int:
                     help="recompute the TH targets' vision features from data/vision_sample/")
     args = ap.parse_args()
 
-    ens = ensemble.load(stack=args.stack)
+    try:
+        ens = ensemble.load(stack=args.stack)
+    except FileNotFoundError as e:
+        print(f"error: file not found: {e.filename or e}", file=sys.stderr)
+        return 2
     try:
         nodes, edges = ensemble.read_graph(args.graph)
         pred = ens.predict(nodes, edges)
@@ -244,7 +246,7 @@ def main() -> int:
     tg = pred[pred["is_target"] == 1] if "is_target" in pred.columns else pred
     out = Path(args.output)
     out.parent.mkdir(parents=True, exist_ok=True)
-    tg.to_csv(out, index=False, float_format="%.17g")
+    write_csv(tg, out)                  # float32 columns rounded (safespeed.CSV_DECIMALS)
     try:
         shown = os.path.relpath(out)
     except ValueError:

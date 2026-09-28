@@ -9,8 +9,6 @@ from pathlib import Path
 sys.dont_write_bytecode = True                  # keep the folder free of __pycache__
 HERE = Path(__file__).resolve().parent.parent   # the top folder, with run_inference.py
 sys.path.insert(0, str(HERE))
-from safespeed._assets import require_assets  # noqa: E402
-require_assets(HERE)            # data/ and weights/ come from the Google Drive download
 import safespeed  # noqa: E402
 
 # Read the roads with safespeed.read_csv: it keeps every digit, and the trees need exact inputs.
@@ -26,5 +24,5 @@ print(table.sort_values("speed_vs_design_kmh", ascending=False).head(8).round(3)
 
 out = HERE / "outputs" / "examples" / "design_speed.csv"
 out.parent.mkdir(parents=True, exist_ok=True)
-pred.to_csv(out, index=False)
+safespeed.write_csv(pred, out)    # rounds only float32 columns; this model has none
 print(f"\nwrote {out.relative_to(HERE)} ({len(pred)} roads)")
