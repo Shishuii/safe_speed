@@ -27,7 +27,7 @@ import sys
 import time
 from pathlib import Path
 
-sys.dont_write_bytecode = True          # keep the shared folder free of __pycache__
+sys.dont_write_bytecode = True          # keep the repository free of __pycache__
 
 import numpy as np   # noqa: E402
 import pandas as pd  # noqa: E402
@@ -39,13 +39,14 @@ from safespeed import vision, write_csv  # noqa: E402
 
 #: v_emb_* are float32 PCA scores. A float32 matrix product is rounded
 #: differently for different matrix sizes (BLAS blocking), so the sample's 7
-#: images reproduce the pipeline's values (computed on 45,294 images at once) to
-#: about 1e-7, not bit for bit. They are compared with this absolute tolerance;
+#: images reproduce the values of SafeSpeed's full build (computed on 45,294
+#: images at once) to about 1e-7, not bit for bit. They are compared with this absolute tolerance;
 #: every other column, and every prediction made from them, must match exactly.
 VEMB_TOL = 1e-6
 #: a_* are float32 means of float32 probabilities. The package repeats the
-#: pipeline's arithmetic and reproduces them bit for bit here; the tolerance only
-#: allows for a last-digit difference in another numpy/BLAS build.
+#: arithmetic of SafeSpeed's full build and reproduces them bit for bit here;
+#: the tolerance only allows for a last-digit difference in another numpy/BLAS
+#: build.
 A_TOL = 1e-6
 
 
@@ -141,7 +142,7 @@ def embed_to(images: pd.DataFrame, image_dir: Path, dest: Path, dinov3: bool):
                      "DINOv3), or leave out --with-dinov3 to embed with CLIP only.")
     ids, E = embed.embed_images(kept, image_dir, clip)
     dest.parent.mkdir(parents=True, exist_ok=True)
-    np.savez(dest, ids=np.asarray(ids, dtype=str), emb=E.astype(np.float16))  # float16, like the pipeline's cache; no pickle
+    np.savez(dest, ids=np.asarray(ids, dtype=str), emb=E.astype(np.float16))  # float16, as SafeSpeed's full build caches them; no pickle
     print(f"  saved {len(ids)} embeddings -> {dest}")
     if dinov3:
         print(f"  DINOv3 ViT-L/16 features ({embed.DINOV3_HUB_ID} @ {embed.DINOV3_REVISION[:12]}) ...")

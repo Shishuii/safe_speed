@@ -24,8 +24,9 @@ DINOv3 License; the weights are not redistributed with this package). The image
 the backbone runs under fp16 autocast on a GPU (fp32 on a CPU), batches of 32.
 Five views of its output tokens are pooled and concatenated (5 x 1,024): the
 first token, the mean of all patch tokens, and the mean of the left, centre and
-right thirds of the patch grid. The features are stored as float16, as the
-pipeline cached them, and recomputed features differ slightly in the same way.
+right thirds of the patch grid. The features are stored as float16, as
+SafeSpeed's full build cached them, and recomputed features differ slightly in
+the same way.
 """
 from __future__ import annotations
 
@@ -147,8 +148,9 @@ def _load_first_images(images_table, image_dir: Path):
 def embed_images(images_table, image_dir: Path, embedder: Embedder | None = None,
                  batch: int = 64) -> tuple[np.ndarray, np.ndarray]:
     """Embed every unique image of an images table (files <image_dir>/<image_id>.jpg).
-    Pass the table AFTER the image filter (safespeed.vision.filter_images), as the
-    pipeline did: a panorama is cropped along the road bearing of its first kept row.
+    Pass the table AFTER the image filter (safespeed.vision.filter_images), as
+    SafeSpeed's full build did: a panorama is cropped along the road bearing of
+    its first kept row.
     Returns (ids, float32 embeddings)."""
     ids, ims = _load_first_images(images_table, image_dir)
     emb = (embedder or Embedder())(ims, batch=batch)

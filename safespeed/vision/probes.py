@@ -18,8 +18,8 @@ Probes and what they output per image:
       lanes    expected lane count, sum over 1-4 of P(k) * k
       Five cross-fitted models per probe (50 km spatial folds of the Thai
       network): an image of the training network uses the model of its fold,
-      which never saw that segment's OSM label. That is how the pipeline made
-      its values, so that is what reproduces them. An image from anywhere else
+      which never saw that segment's OSM label. That is how SafeSpeed's full build
+      made its values, so that is what reproduces them. An image from anywhere else
       (osm_fold blank) uses the extra model refitted on all labelled images.
 """
 from __future__ import annotations
@@ -99,7 +99,7 @@ class OSMProbes:
     def predict(self, X: np.ndarray, fold: np.ndarray, kind: str) -> np.ndarray:
         """P(divided) or expected lanes per image. `fold` is the image's OSM fold
         (0-4) or -1 for an image outside the training network (all-data refit).
-        A fold whose model could not be trained gives NaN, as in the pipeline."""
+        A fold whose model could not be trained gives NaN, as in SafeSpeed's full build."""
         out = np.full(len(X), np.nan)
         for k in np.unique(fold):
             te = fold == k

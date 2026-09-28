@@ -12,7 +12,7 @@ import sys
 import time
 from pathlib import Path
 
-sys.dont_write_bytecode = True          # keep the shared folder free of __pycache__
+sys.dont_write_bytecode = True          # keep the repository free of __pycache__
 
 import numpy as np   # noqa: E402
 import pandas as pd  # noqa: E402

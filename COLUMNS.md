@@ -42,10 +42,10 @@ must be present and may be blank only where marked. Optional columns may be left
 | `motorway` | car occupant on a motorway | car occupant | travel speed |
 
 SafeSpeed sets `crash_type` from its survivable-speed rules: motorways get
-`motorway`; other roads go by their GHS-SMOD settlement class (5–6: `vru_ped`; 3–4:
-`vru_ptw` with 3 or more lanes, otherwise `vru_ped`; 0–2: `vru_ptw`), and without a
-settlement class urban primary and secondary roads get `vru_ped` and the rest
-`vru_ptw`.
+`motorway`; other roads go by their settlement class in the Global Human Settlement
+Layer (GHS-SMOD; 5–6: `vru_ped`; 3–4: `vru_ptw` with 3 or more lanes, otherwise
+`vru_ped`; 0–2: `vru_ptw`), and without a settlement class urban primary and
+secondary roads get `vru_ped` and the rest `vru_ptw`.
 
 **Output** (`outputs/predictions.csv`):
 
@@ -55,9 +55,20 @@ settlement class urban primary and secondary roads get `vru_ped` and the rest
 | `design_speed_v50`, `design_speed_v85` | median and 85th-percentile speed the road invites, km/h |
 | `speed_vs_design_kmh` | measured v85 minus predicted v85 (blank without `operating_speed`); positive = traffic runs faster than the layout invites |
 | `speed_attr_base_kmh` | v85 of a reference road with every input at the country's median |
-| `speed_attr_location` … `speed_attr_length` | each factor group's share, in km/h, of the difference from the reference road; the six add up to `design_speed_v85 − speed_attr_base_kmh` |
-| `speed_top_factor`, `speed_top_factor_2` | the two factor groups with the largest effect |
+| `speed_attr_location` … `speed_attr_length` | each factor group's share, in km/h, of the difference from the reference road; the six add up to `design_speed_v85 − speed_attr_base_kmh` (groups below) |
+| `speed_top_factor`, `speed_top_factor_2` | the two factor groups with the largest effect, named as below |
 | `harm_model` | 0–1: chance that the road user named by `crash_type` is killed or seriously injured in a crash at these speeds |
+
+The six factor groups, and the input columns each one reads:
+
+| Column | Factor group | Inputs |
+|---|---|---|
+| `speed_attr_location` | Location | `lat`, `lon` |
+| `speed_attr_geometry` | Road geometry (bends, junctions) | `geo_sinuosity`, `geo_curvature`, `geo_junction_density` |
+| `speed_attr_activity` | Shops, schools & stops nearby | `poi_vru_raw`, `poi_school`, `poi_transport` |
+| `speed_attr_population` | People living nearby | `pop_exposure`, `pop_density` |
+| `speed_attr_posted_limit` | Posted speed limit | `posted_limit` |
+| `speed_attr_length` | Segment length | `length_km` |
 
 ## 2 · Vision model (Thailand)
 
@@ -80,7 +91,7 @@ settlement class urban primary and secondary roads get `vru_ped` and the rest
 | `road_bearing` | the road's compass bearing at the point, degrees, measured over 25 m of the road line |
 | `heading_diff` | angle between `compass_angle` and `road_bearing`, 0–90°, ignoring travel direction; computed from them when left out |
 | `is_pano` | panorama or not: true/false, 1/0 or yes/no |
-| `osm_fold` | the image's cross-validation block in the Thai training network; blank elsewhere |
+| `osm_fold` | the image's 50 km cross-validation block in the Thai training network, which selects the matching cross-fitted OpenStreetMap (OSM) probe; leave blank for new images (the probe refitted on all labelled images is then used) |
 | `key`, `lat`, `lon`, `mapillary_url` | passed through |
 
 A missing optional column skips its filter.

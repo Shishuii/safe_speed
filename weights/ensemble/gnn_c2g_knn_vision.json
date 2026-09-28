@@ -516,11 +516,11 @@
    "python": "3.11.9"
   },
   "sha256": {
-   "scripts/train_ensemble_vision.py": "08a5fd64b7c4ffad943d85fd1b31a85867c2c73375795a5602eb698e85c5c952",
+   "train_ensemble_vision.py": "08a5fd64b7c4ffad943d85fd1b31a85867c2c73375795a5602eb698e85c5c952",
    "cv_protocol_script": "5be9ff830ad315c24ab0e9bafe35e50de9222d564bbadefe95b00b6b737f229f",
-   "scripts/train_irap_classifier.py": "48d5365c2f7ea52e801b722afe9c36bbfb8ba13f030fac779507fe0b36195cef",
-   "data/external/vision/irap_heads_dinov3_l.npz": "4a3d070f0cfe7b1b8881bb245fd57d7272253841442719e5fb65714c23daa1f2",
-   "data/external/vision/irap_scores_thb_dinov3_l.parquet": "2b43ddc8c16ee8ead0f013f41c9f511306374d4c829f8d2f0ea6689821f10e05"
+   "train_irap_classifier.py": "48d5365c2f7ea52e801b722afe9c36bbfb8ba13f030fac779507fe0b36195cef",
+   "dinov3_heads.npz": "4a3d070f0cfe7b1b8881bb245fd57d7272253841442719e5fb65714c23daa1f2",
+   "dinov3_classifier_scores_TH.parquet": "2b43ddc8c16ee8ead0f013f41c9f511306374d4c829f8d2f0ea6689821f10e05"
   }
  }
 }

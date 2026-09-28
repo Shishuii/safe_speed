@@ -8,10 +8,10 @@
                                                      # member (its small gain is matched by
                                                      # a placebo)
     python3 run_ensemble.py --stack without_images   # 4 members: no image features at all
-    python3 run_ensemble.py --vision-from-images     # recompute the Thai targets' image
+    python3 run_ensemble.py --vision-from-images     # recompute the Thai target pieces' image
                                                      # features (v_*; with --stack with_dinov3
                                                      # also a_*) from the vision sample and
-                                                     # prove the two parts chain
+                                                     # check that the two models chain
     python3 run_ensemble.py --graph my_folder/ --output my_ensemble.csv
 
 Writes outputs/ensemble_predictions.csv (one row per target road piece). Needs numpy
@@ -25,7 +25,7 @@ import os
 import sys
 from pathlib import Path
 
-sys.dont_write_bytecode = True          # keep the shared folder free of __pycache__
+sys.dont_write_bytecode = True          # keep the repository free of __pycache__
 
 import numpy as np   # noqa: E402
 import pandas as pd  # noqa: E402
@@ -206,7 +206,8 @@ def vision_from_images(nodes: pd.DataFrame, edges: dict, ens, exp: pd.DataFrame)
 def main() -> int:
     ap = argparse.ArgumentParser(description="Run the SafeSpeed research ensemble.")
     ap.add_argument("--graph", default=str(SAMPLE),
-                    help="folder with nodes.csv, edges_topological.csv, edges_knn.csv")
+                    help="folder with nodes.csv, edges_topological.csv, edges_knn.csv "
+                         "(default: data/graph_sample/)")
     ap.add_argument("--stack", default=ensemble.DEFAULT_STACK, choices=ensemble.STACKS,
                     help="'default' (7 members, no DINOv3 classifier member), 'with_dinov3' "
                          "(8: adds the DINOv3 classifier member, whose small gain is matched "
@@ -215,7 +216,8 @@ def main() -> int:
                     help="where to write the results (default: outputs/ensemble_predictions.csv)")
     ap.add_argument("--check", action="store_true", help="compare with the graph's expected.csv")
     ap.add_argument("--vision-from-images", action="store_true",
-                    help="recompute the TH targets' vision features from data/vision_sample/")
+                    help="recompute the Thai target pieces' image features from "
+                         "data/vision_sample/ and check that they match the node features")
     args = ap.parse_args()
 
     try:

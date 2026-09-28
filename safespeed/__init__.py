@@ -122,7 +122,7 @@ def _rows(n: int) -> str:
 
 
 def prepare(df: pd.DataFrame, countries, coverage: dict, crash_types) -> pd.DataFrame:
-    """Check and clean the input table (same cleaning as the SafeSpeed pipeline).
+    """Check and clean the input table (same cleaning as SafeSpeed's full build).
 
     Raises InputError listing every problem found, so a file can be fixed in one go.
     """

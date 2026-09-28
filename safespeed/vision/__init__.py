@@ -104,14 +104,14 @@ def load_embeddings(path) -> tuple[np.ndarray, np.ndarray]:
 
 def load_dinov3_features(path) -> tuple[np.ndarray, np.ndarray]:
     """(image ids, float32 DINOv3 features) from an npz with `ids` and `X` (float16,
-    as the pipeline cached them)."""
+    as SafeSpeed's full build cached them)."""
     z = np.load(path, allow_pickle=False)
     return z["ids"].astype(str), z["X"].astype(np.float32)
 
 
 def filter_images(images: pd.DataFrame, weights_dir: Path = WEIGHTS_DIR) -> pd.DataFrame:
-    """The images the model uses (date, distance and heading filter), as the
-    pipeline selected them. Embed these rows, not the unfiltered table."""
+    """The images the model uses (date, distance and heading filter), as
+    SafeSpeed's full build selected them. Embed these rows, not the unfiltered table."""
     return A.filter_images(images, load(weights_dir)["cfg"])[0]
 
 
@@ -122,7 +122,7 @@ def predict_images(images: pd.DataFrame, embeddings, detections=None,
     for every row of `embeddings`, embedding ids).
 
     Every row of the embedding matrix is run through the probes and the PCA in
-    one call (as the pipeline does), then the images in `images` are selected.
+    one call (as SafeSpeed's full build does), then the images in `images` are selected.
     `dinov3` = (ids, features) adds the classifier's float32 a_* probabilities.
     """
     W = load(weights_dir)
@@ -249,7 +249,7 @@ def check_inputs(images: pd.DataFrame, segments: pd.DataFrame | None, country: s
 
 def classify_images(images: pd.DataFrame, dinov3, clf: DinoV3Classifier) -> pd.DataFrame:
     """DINOv3 classifier probabilities (design-role a_* columns, float32) for every
-    row of the feature matrix, as the pipeline ran it; one row per image id."""
+    row of the feature matrix, as SafeSpeed's full build ran it; one row per image id."""
     dids, D = dinov3
     dids = np.asarray(dids).astype(str)
     D = np.asarray(D, dtype=np.float32)

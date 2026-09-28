@@ -1,12 +1,11 @@
 SafeSpeed: code and weights
 ===========================
 
-The SafeSpeed team has not yet chosen a licence for the code (run_*.py,
-examples/, safespeed/) or for the weights outside weights/vision_thairap/. They
-are shared for evaluation in the AI for Safer Roads 2026 Innovation Challenge.
-You may run them to evaluate SafeSpeed. Ask the SafeSpeed team before reusing,
-modifying or redistributing them.
+The code (run_*.py, examples/, safespeed/) and the trained weights are the
+SafeSpeed team's submission to the AI for Safer Roads 2026 Innovation Challenge
+(Asian Development Bank / Agilysis). They are provided as is, without warranty.
 
-weights/vision_thairap/ and everything trained on its outputs carry their own
-non-commercial terms: see weights/vision_thairap/LICENSE.txt. Third-party data
-and models keep their own licences (README.md, "Licences").
+weights/vision_thairap/ and everything trained on its outputs are for
+non-commercial use only (CC BY-NC 4.0): see weights/vision_thairap/LICENSE.txt.
+Third-party data and models keep their own licences (README.md, "Licences and
+attribution").

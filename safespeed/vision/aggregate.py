@@ -1,8 +1,7 @@
 """Street images -> per-image features -> per-segment vision features.
 
-Faithful port of the SafeSpeed pipeline (app/vision/worklist.py filters,
-aggregate.py, detections.py). The rules and tables live in
-weights/vision/vision_config.json.
+Reproduces SafeSpeed's image selection, per-segment aggregation and detection
+rules exactly. The rules and tables live in weights/vision/vision_config.json.
 
 Per image
   * ThaiRAP probe codes -> v_roadside_dist, v_roadside_severe,
@@ -26,7 +25,7 @@ Per segment
 
 The PCA projection repeats scikit-learn's float32 arithmetic
 (x @ C^T - mean @ C^T). A float32 matrix product is rounded differently for
-different matrix sizes, so v_emb_* reproduce the pipeline bit for bit only when
+different matrix sizes, so v_emb_* reproduce SafeSpeed's full build bit for bit only when
 the same set of images is projected in one call; otherwise they agree to float32
 precision (about 1e-7).
 """
@@ -201,7 +200,7 @@ def segment_embeddings(images: pd.DataFrame, ids: np.ndarray, Z: np.ndarray,
 # ------------------------------------------------------------ per segment
 def aggregate(feats: pd.DataFrame, images: pd.DataFrame, points_per_seg: pd.Series,
               seg_emb: pd.DataFrame, cfg: dict) -> pd.DataFrame:
-    """Per-segment vision features (the pipeline's `aggregate`)."""
+    """Per-segment vision features, aggregated as in SafeSpeed's full build."""
     col = cfg["columns"]
     w = images[["seg_id", "image_id", "year"]].merge(feats, on="image_id", how="inner")
     n_img = w.groupby("seg_id").image_id.nunique().rename("v_n_images")

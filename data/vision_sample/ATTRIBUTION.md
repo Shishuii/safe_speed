@@ -37,10 +37,9 @@ under the Open Database License (https://www.openstreetmap.org/copyright).
 `dinov3_features.npz` holds the cached DINOv3 ViT-L/16 features of the same images
 (outputs of Meta's DINOv3 backbone, timm/vit_large_patch16_dinov3.lvd1689m). DINOv3
 is used under the DINOv3 License; the full text is in
-`weights/vision_thairap/DINOv3_LICENSE.md`. Whether these features are derivative works
-of DINOv3 is not settled. If they are, they are distributed under the DINOv3 License,
-whose conditions (summarised in `weights/vision_thairap/LICENSE.txt`) then apply to
-anyone who passes them on.
+`weights/vision_thairap/DINOv3_LICENSE.md`. These features are distributed under the
+DINOv3 License, whose conditions (summarised in `weights/vision_thairap/LICENSE.txt`)
+apply to anyone who passes them on.
 
 ## Not included
 

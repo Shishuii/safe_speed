@@ -11,12 +11,12 @@ so they are non-commercial (weights/vision_thairap/LICENSE.txt).
 
 for attribute j, where W_j, b_j and its iRAP codes are rows
 offsets[j]:offsets[j+1] of W, b and classes. The arithmetic is float64 on the
-float16 features, in chunks of 4,096 images, as the pipeline computed it; the
+float16 features, in chunks of 4,096 images, as SafeSpeed's full build computed it; the
 probabilities are then stored as float32.
 
 A segment's score is the mean of its images' float32 probabilities over its
 (500 m point, image) rows, summed in float32 with compensation in row order.
-That is what the pipeline's pandas groupby mean does, so the package reproduces
+That is what the pandas groupby mean of SafeSpeed's full build does, so the package reproduces
 its values bit for bit, independently of the pandas version.
 
 Output columns are a_<attribute>__<iRAP code>, for the DESIGN-role attributes

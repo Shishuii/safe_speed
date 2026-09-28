@@ -1,6 +1,6 @@
 """The survivable-speed rung, decided from what the street images show.
 
-Faithful port of the pipeline's app/vision/rung.py. The safe speed is the LOWEST
+Reproduces SafeSpeed's survivable-speed rule exactly. The safe speed is the LOWEST
 rung whose conflict the road allows (speeds derived from the Lubbe, Wu &
 Jeppsson 2022 injury curves: people on foot 30, cyclists 40, motorcyclists 45,
 side impact 50, head-on 55, motorway 100 km/h):

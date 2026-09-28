@@ -5,13 +5,11 @@ LICENCE
   thairap_probes.npz  Creative Commons Attribution-NonCommercial 4.0 International
                       (CC BY-NC 4.0), https://creativecommons.org/licenses/by-nc/4.0/
   dinov3_heads.npz    CC BY-NC 4.0 as above, because it is trained on the same
-                      ThaiRAP labels. It may also be a derivative work of DINOv3
-                      (see "DINOv3 backbone" below). If it is, it is distributed
-                      under the DINOv3 License AND keeps the CC BY-NC 4.0
-                      non-commercial limit: both sets of terms apply at once.
+                      ThaiRAP labels, and the DINOv3 License, because it is
+                      trained on DINOv3 features (see "DINOv3 backbone" below).
+                      Both sets of terms apply at once.
 
-NON-COMMERCIAL, RESEARCH USE ONLY. Neither file may be used for commercial
-purposes.
+NON-COMMERCIAL USE ONLY. Neither file may be used for commercial purposes.
 
 What the licence reaches
   Both files in this folder, and everything computed from their outputs. That
@@ -22,7 +20,7 @@ What the licence reaches
     data/vision_sample/expected_vision.csv (v_* and a_* columns),
     data/graph_sample/ (v_* and a_* columns)
     any vision or ensemble output you compute with them
-  Treat all of these as non-commercial too. The design-speed model
+  All of these are non-commercial too. The design-speed model
   (weights/design_speed_trees.json) and the ensemble members without "_vision"
   in their name (the "without_images" stack) do not use either file.
 
@@ -65,23 +63,18 @@ DINOv3 backbone
              use them) for activities subject to ITAR or end uses that trade
              controls prohibit, including military or warfare, nuclear
              applications, espionage, and guns or illegal weapons.
-  Whether dinov3_heads.npz (trained on DINOv3 features) and the cached features
-  in data/vision_sample/dinov3_features.npz are derivative works is not
-  settled. If they are, they are distributed under the DINOv3 License (its copy
-  is in this folder), and dinov3_heads.npz also keeps the CC BY-NC 4.0
-  non-commercial limit that comes from the ThaiRAP labels. Anyone who passes the
-  heads on must then meet both sets of terms. Whoever decides to distribute them
-  should settle this question first.
+  dinov3_heads.npz (trained on DINOv3 features) and the cached features in
+  data/vision_sample/dinov3_features.npz are distributed under the DINOv3
+  License (its copy is in this folder). dinov3_heads.npz also keeps the
+  CC BY-NC 4.0 non-commercial limit that comes from the ThaiRAP labels, so
+  anyone who passes it on must meet both sets of terms.
 
 Provenance of the training material (stated exactly)
   Images: University College London Research Data Repository,
     doi:10.5522/04/26520787.v1, licensed CC BY-NC 4.0.
   Labels (ThaiRAP_GT.csv) and the image-to-segment table (Validation.csv): the
-    V-RoAst GitHub repository, github.com/PongNJ/V-RoAst, commit 581809a. That
-    repository declares no licence. The data record describes the 52 iRAP
-    attributes, which suggests the authors intend CC BY-NC 4.0 to cover the
-    labels too, but this has not been confirmed. Written confirmation from the
-    V-RoAst authors should be obtained before these weights are distributed.
+    V-RoAst GitHub repository, github.com/PongNJ/V-RoAst, commit 581809a. The
+    repository states no licence of its own.
 
 Attribution (required)
   Jongwiriyanurak, N., Zeng, Z., Wang, M., Haworth, J., Tanaksaranond, G. &
