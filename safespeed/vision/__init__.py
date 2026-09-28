@@ -141,7 +141,6 @@ def predict_images(images: pd.DataFrame, embeddings, detections=None,
                                "run_vision.py --embed-to NEW.npz --image-dir DIR "
                                "(needs torch + transformers)")
 
-    per = pd.DataFrame({"image_id": ids})
     # ThaiRAP probes -> codes -> features
     codes = pd.DataFrame(W["thairap"].codes(E))
     codes.insert(0, "image_id", ids)

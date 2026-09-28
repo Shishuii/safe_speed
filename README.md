@@ -64,7 +64,9 @@ python run_ensemble.py --check --vision-from-images     # rebuild the image feat
 ```
 
 `python run_vision.py --check --with-dinov3` adds the DINOv3 classifier's `a_*`
-columns to model 2; only the `with_dinov3` stack uses them.
+columns to model 2; only the `with_dinov3` stack uses them. Runs with `--with-dinov3` or
+another `--stack` write that variant's results to `outputs/`; the three plain commands
+above restore the shipped files.
 
 Three short, commented examples call the models from Python:
 
