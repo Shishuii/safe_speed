@@ -1,0 +1,201 @@
+id,country,name,design_speed_v50,design_speed_v85,speed_vs_design_kmh,speed_attr_base_kmh,speed_attr_location,speed_attr_geometry,speed_attr_activity,speed_attr_population,speed_attr_posted_limit,speed_attr_length,speed_top_factor,speed_top_factor_2,harm_model
+MH-3,MH,,42.6,54.1,-27.1,51.5,3.89,-12.41,0.33,5.35,5.09,0.37,"Road geometry (bends, junctions)",People living nearby,0.09270311760205699
+MH-50,MH,,29.8,37.9,-11.9,51.5,6.66,-12.2,-3.46,-5.0,0.0,0.42,"Road geometry (bends, junctions)",Location,0.05586568830528129
+MH-57,MH,,44.4,57.4,-26.2,51.5,7.41,-0.42,-4.24,3.14,0.0,0.0,Location,"Shops, schools & stops nearby",0.10041042129972724
+MH-547,MH,,36.8,46.2,14.8,51.5,1.9,-5.35,-2.41,0.6,0.0,0.0,"Road geometry (bends, junctions)","Shops, schools & stops nearby",0.07344813635229984
+MH-567,MH,,35.3,45.7,-1.7,51.5,3.28,-8.94,-2.39,1.86,0.0,0.44,"Road geometry (bends, junctions)",Location,0.17514510198256059
+MH-652,MH,,35.2,44.5,16.0,51.5,3.39,-1.47,-2.79,-6.29,0.0,0.2,People living nearby,Location,0.16952608572387923
+MH-653,MH,,38.7,50.0,-0.7,51.5,5.88,-1.92,0.0,-2.36,-3.71,0.6,Location,Posted speed limit,0.21709876369213119
+MH-705,MH,Jinti Road,37.6,48.2,0.8,51.5,4.08,-9.88,0.0,2.39,0.0,0.16,"Road geometry (bends, junctions)",Location,0.0766506614670158
+MH-751,MH,Wadange-Kolhapur Road,36.9,48.1,2.9,51.5,3.52,-1.88,-2.45,-2.85,0.0,0.29,Location,People living nearby,0.07521575472913
+MH-799,MH,,34.5,46.4,-15.6,51.5,-4.93,8.19,-1.67,-3.31,-3.57,0.16,"Road geometry (bends, junctions)",Location,0.06942460161357636
+MH-823,MH,,47.5,59.4,12.9,51.5,-3.78,0.07,2.53,8.49,0.0,0.58,People living nearby,Location,0.11064837168851478
+MH-869,MH,,44.2,58.1,-1.3,51.5,2.24,8.91,-2.56,-2.02,0.0,0.0,"Road geometry (bends, junctions)","Shops, schools & stops nearby",0.10080485204174758
+MH-908,MH,,36.1,47.5,18.2,51.5,1.41,-7.17,-1.95,3.57,0.0,0.16,"Road geometry (bends, junctions)",People living nearby,0.07308862533648584
+MH-966,MH,,29.2,39.2,-10.2,51.5,-1.65,2.07,-1.44,-8.17,-3.29,0.19,People living nearby,Posted speed limit,0.11843128213775536
+MH-999,MH,,47.1,59.0,-3.5,51.5,-0.62,8.3,-2.72,2.56,0.0,0.0,"Road geometry (bends, junctions)","Shops, schools & stops nearby",0.10924602770056628
+MH-1065,MH,,28.7,37.6,0.4,51.5,1.44,-0.04,-2.95,-15.01,1.42,1.27,People living nearby,"Shops, schools & stops nearby",0.11092032255004258
+MH-1099,MH,,36.6,45.2,-0.2,51.5,3.14,-10.99,-2.38,3.46,0.0,0.52,"Road geometry (bends, junctions)",People living nearby,0.07224602875594786
+MH-1102,MH,,51.1,64.8,-36.1,51.5,9.39,2.37,-2.96,4.33,0.0,0.19,Location,People living nearby,0.12767754849447469
+MH-1191,MH,,56.1,72.1,9.9,51.5,5.15,9.65,0.0,5.14,0.0,0.66,"Road geometry (bends, junctions)",Location,0.15489141586583605
+MH-1224,MH,,42.8,54.7,-6.0,51.5,-1.06,1.08,0.0,2.62,0.0,0.57,People living nearby,"Road geometry (bends, junctions)",0.09372989932051605
+MH-1227,MH,,40.1,53.0,-16.0,51.5,4.3,-2.11,-1.52,1.66,0.0,-0.79,Location,"Road geometry (bends, junctions)",0.08626516049177103
+MH-1274,MH,,40.7,51.3,6.4,51.5,7.79,-10.99,0.47,2.36,0.0,0.21,"Road geometry (bends, junctions)",Location,0.08560160192844787
+MH-1336,MH,,45.9,58.1,6.3,51.5,8.68,8.49,-1.47,-9.28,0.0,0.23,People living nearby,Location,0.3173604824786899
+MH-1481,MH,,40.1,51.9,-12.9,51.5,6.09,4.51,-1.01,-9.37,0.0,0.22,People living nearby,Location,0.23597442744331013
+MH-1488,MH,Shirur Satara Road,35.9,47.6,-15.1,51.5,2.13,1.86,-0.33,-7.68,0.0,0.11,People living nearby,Location,0.18726118238178638
+MH-1511,MH,,33.3,43.8,9.7,51.5,0.18,3.58,-0.02,-8.07,-3.47,0.1,People living nearby,"Road geometry (bends, junctions)",0.06521289625175128
+MH-1537,MH,,40.6,51.6,4.4,51.5,3.35,-6.62,-2.04,4.84,0.0,0.54,"Road geometry (bends, junctions)",People living nearby,0.08571846484009857
+MH-1559,MH,,35.0,47.2,-7.0,51.5,0.07,8.59,0.27,-13.65,0.0,0.4,People living nearby,"Road geometry (bends, junctions)",0.07088410142590192
+MH-1561,MH,Chiplun Guhagar Road,33.4,41.9,6.8,51.5,3.91,-15.35,0.48,0.84,0.0,0.55,"Road geometry (bends, junctions)",Location,0.06420314666507125
+MH-1630,MH,,52.9,66.9,-22.5,51.5,1.59,9.89,0.04,-2.0,5.68,0.25,"Road geometry (bends, junctions)",Posted speed limit,0.13621874074715992
+MH-1635,MH,,44.8,57.7,1.7,51.5,4.47,3.45,-1.72,0.0,0.0,0.0,Location,"Road geometry (bends, junctions)",0.3032049122194111
+MH-1644,MH,,29.4,37.8,-8.3,51.5,-4.58,-2.22,-2.05,-14.2,9.23,0.1,People living nearby,Posted speed limit,0.11413353359433435
+MH-1666,MH,Station Road,27.9,37.8,-0.3,51.5,3.13,0.89,0.13,-14.74,-3.24,0.18,People living nearby,Posted speed limit,0.10833750847972876
+MH-1671,MH,,34.6,44.7,-0.7,51.5,1.82,-9.06,-3.74,4.22,0.0,0.0,"Road geometry (bends, junctions)",People living nearby,0.06821271657537373
+MH-1674,MH,,60.7,74.6,-14.6,51.5,0.88,11.84,0.35,9.36,0.0,0.65,"Road geometry (bends, junctions)",People living nearby,0.17550047278052533
+MH-1869,MH,Aurangabad Jalna Road,43.0,54.9,-2.9,51.5,2.12,8.26,2.43,-9.64,0.0,0.22,People living nearby,"Road geometry (bends, junctions)",0.2741543643379984
+MH-1880,MH,Narayangan-Junner-Ozar Road,34.9,44.7,-1.0,51.5,-0.42,8.23,-2.77,-12.05,0.0,0.2,People living nearby,"Road geometry (bends, junctions)",0.16854773362449574
+MH-1902,MH,,44.3,56.0,10.5,51.5,-1.07,-0.42,-1.27,6.68,0.0,0.56,People living nearby,"Shops, schools & stops nearby",0.09867844635980669
+MH-1954,MH,,32.0,41.6,-2.1,51.5,-0.06,-3.81,-0.99,-1.74,-3.39,0.1,"Road geometry (bends, junctions)",Posted speed limit,0.13980822768258505
+MH-1977,MH,,47.7,59.1,3.6,51.5,-0.16,0.37,-1.33,8.2,0.0,0.54,People living nearby,"Shops, schools & stops nearby",0.11069317310771527
+MH-1995,MH,bus stand road,28.2,37.6,2.4,51.5,3.57,-0.43,-1.43,-12.59,-3.23,0.18,People living nearby,Location,0.10848019299776687
+MH-2114,MH,,50.2,62.6,-5.0,51.5,2.0,4.71,-3.4,11.42,-4.16,0.59,People living nearby,"Road geometry (bends, junctions)",0.38309333976941684
+MH-2146,MH,,61.6,76.2,15.8,51.5,10.33,10.73,2.89,0.78,0.0,0.0,"Road geometry (bends, junctions)",Location,0.1817192495400371
+MH-2252,MH,Maharashtra State Highway 91,36.2,45.4,24.8,51.5,1.43,-11.2,-1.64,4.27,0.0,1.07,"Road geometry (bends, junctions)",People living nearby,0.07172358621783413
+MH-2277,MH,,49.4,64.8,17.2,51.5,5.71,10.72,0.87,-9.81,5.59,0.24,"Road geometry (bends, junctions)",People living nearby,0.3781880635511926
+MH-2316,MH,,49.0,63.1,11.9,51.5,6.62,3.57,-2.33,-2.23,5.51,0.51,Location,Posted speed limit,0.36879558165927806
+MH-2319,MH,Khed Shivapur Kondanpur Road,33.6,44.0,17.0,51.5,3.5,-8.39,-1.57,-1.05,0.0,0.0,"Road geometry (bends, junctions)",Location,0.0659547274960531
+MH-2366,MH,,49.6,63.6,9.4,51.5,2.18,11.95,0.36,-2.66,0.0,0.24,"Road geometry (bends, junctions)",People living nearby,0.12167994052342826
+MH-2368,MH,,44.6,55.0,25.0,51.5,5.51,3.25,-0.75,-4.74,0.0,0.22,Location,People living nearby,0.29119157384957983
+MH-2376,MH,,59.1,74.5,2.0,51.5,11.4,11.89,-3.63,2.66,0.0,0.65,"Road geometry (bends, junctions)",Location,0.1692935954196806
+MH-2526,MH,,53.6,68.0,-7.5,51.5,2.48,9.36,0.76,3.29,0.0,0.62,"Road geometry (bends, junctions)",People living nearby,0.14013165072744357
+MH-2557,MH,,55.7,68.3,22.7,51.5,6.14,-0.16,1.31,8.9,0.0,0.62,People living nearby,Location,0.1472569594429825
+MH-2659,MH,,45.1,55.2,7.3,51.5,8.35,-10.05,0.48,4.71,0.0,0.18,"Road geometry (bends, junctions)",Location,0.09964951359233684
+MH-2803,MH,JNPT Road Flyover,43.0,54.0,20.7,51.5,1.23,12.62,-2.47,-8.95,0.0,0.12,"Road geometry (bends, junctions)",People living nearby,0.007709616194300432
+MH-2887,MH,Mumbai Agra Highway Flyover,39.3,53.0,40.2,51.5,1.98,7.09,-3.54,-9.47,5.32,0.11,People living nearby,"Road geometry (bends, junctions)",0.006945388241967598
+MH-2888,MH,Karad Vita Road,41.8,53.3,16.5,51.5,6.07,-9.21,0.32,4.03,0.0,0.57,"Road geometry (bends, junctions)",Location,0.2568113619670152
+MH-2987,MH,Kalyan Road,19.6,25.5,0.1,51.5,-2.17,-1.35,-2.81,-17.26,-2.7,0.35,People living nearby,"Shops, schools & stops nearby",0.053642051515542875
+MH-3001,MH,,44.1,57.4,14.6,51.5,1.71,-0.37,-3.73,7.74,0.0,0.57,People living nearby,"Shops, schools & stops nearby",0.099738895351527
+MH-3014,MH,,44.1,56.9,12.6,51.5,8.14,-7.36,2.48,1.61,0.0,0.56,Location,"Road geometry (bends, junctions)",0.09918241481283022
+MH-3185,MH,,49.5,62.0,-6.9,51.5,1.53,0.46,1.25,6.73,0.0,0.59,People living nearby,Location,0.37228399708903986
+MH-3199,MH,,43.2,55.8,-0.8,51.5,5.24,7.92,-3.32,-7.21,1.72,0.0,"Road geometry (bends, junctions)",People living nearby,0.28008945109397004
+MH-3265,MH,,30.0,38.4,5.4,51.5,-2.05,-5.41,-0.33,-2.24,-3.26,0.19,"Road geometry (bends, junctions)",Posted speed limit,0.11916307449464891
+MH-3328,MH,,31.6,43.9,1.4,51.5,4.91,0.41,-3.27,-14.37,4.59,0.13,People living nearby,Location,0.14772506285862722
+MH-3449,MH,Ulwe Flyover,39.2,50.2,27.6,51.5,1.19,0.22,0.0,-2.91,0.0,0.21,People living nearby,Location,0.006589959584176262
+MH-3456,MH,Belapur Railway Flyover,39.1,52.0,4.0,51.5,1.21,12.83,-0.71,-13.0,0.0,0.16,People living nearby,"Road geometry (bends, junctions)",0.0067815860565419
+MH-3476,MH,Ulwe Flyover,46.1,57.1,24.5,51.5,1.27,1.32,0.0,-2.44,5.23,0.23,Posted speed limit,People living nearby,0.008722858829868032
+MH-3567,MH,NDA Road,26.2,33.8,-8.3,51.5,1.56,-6.1,-3.11,-7.12,-3.07,0.18,People living nearby,"Road geometry (bends, junctions)",0.08992904646567874
+MH-3576,MH,NMMC Flyover,41.5,53.1,-0.9,51.5,1.22,12.8,-3.84,-13.75,5.04,0.11,People living nearby,"Road geometry (bends, junctions)",0.007300081315263045
+MH-3621,MH,Teen Hath Naka Flyover,31.2,40.3,-2.4,51.5,-2.13,9.26,-3.38,-20.81,4.65,1.17,People living nearby,"Road geometry (bends, junctions)",0.004630780589765628
+MH-3649,MH,Mumbai Agra Highway Flyover,39.9,53.0,19.8,51.5,1.98,12.42,-3.04,-15.6,5.33,0.47,People living nearby,"Road geometry (bends, junctions)",0.007037383106370418
+MH-3664,MH,Kalamboli Link Road,39.1,49.8,1.2,51.5,1.18,9.89,-0.7,-8.58,-3.7,0.21,"Road geometry (bends, junctions)",People living nearby,0.21900549864526284
+MH-3682,MH,Agra Mumbai Road Flyover,42.0,55.1,22.6,51.5,1.77,12.69,-1.14,-14.82,5.14,0.0,People living nearby,"Road geometry (bends, junctions)",0.007663981538227248
+MH-3686,MH,Hinjawadi Phase 2 Road,31.2,40.9,4.1,51.5,1.89,-8.47,-1.28,-7.81,4.69,0.44,"Road geometry (bends, junctions)",People living nearby,0.13363273174251192
+MH-3697,MH,,63.6,77.3,14.7,51.5,1.99,9.99,1.4,11.34,2.04,-0.96,People living nearby,"Road geometry (bends, junctions)",0.19210585409158357
+MH-3702,MH,Agra Mumbai Road Flyover,45.7,58.5,24.7,51.5,2.09,9.35,-1.18,-15.05,11.79,0.0,People living nearby,Posted speed limit,0.00884663359408771
+MH-3713,MH,Belapur Flyover,39.0,51.7,0.3,51.5,1.2,9.29,-2.21,-13.56,4.98,0.49,People living nearby,"Road geometry (bends, junctions)",0.006726962830598833
+MH-3721,MH,,55.8,69.3,20.0,51.5,7.46,-0.76,-0.51,11.45,0.0,0.2,People living nearby,Location,0.14928967737609677
+MH-3729,MH,Mumbai Agra Highway Flyover,42.3,55.6,24.8,51.5,2.03,12.05,0.68,-16.14,5.45,0.0,People living nearby,"Road geometry (bends, junctions)",0.007777557499679027
+MH-3744,MH,Dehu - Alandi Road,34.1,43.6,-2.6,51.5,1.4,-1.23,-3.98,-4.65,0.0,0.56,People living nearby,"Shops, schools & stops nearby",0.1593424885748011
+MH-3748,MH,Mumbai Delhi Highway,45.5,57.1,8.8,51.5,-2.81,9.05,0.13,-6.22,5.23,0.23,"Road geometry (bends, junctions)",People living nearby,0.30887348891443284
+MH-3794,MH,Paud Road,23.9,33.6,-6.6,51.5,1.72,2.59,-5.95,-13.44,-3.06,0.25,People living nearby,"Shops, schools & stops nearby",0.08194116693741393
+MH-3809,MH,Kamothe Flyover,40.2,50.9,17.5,51.5,1.2,7.53,-4.3,-12.87,6.54,1.32,People living nearby,"Road geometry (bends, junctions)",0.006835861606945598
+MH-3831,MH,Sanpada Flyover,39.9,49.8,15.2,51.5,1.6,12.11,0.65,-23.09,6.47,0.59,People living nearby,"Road geometry (bends, junctions)",0.006670699956173509
+MH-3834,MH,North Main Road,33.2,43.4,-7.4,51.5,1.4,5.01,-3.54,-15.93,4.83,0.2,People living nearby,"Road geometry (bends, junctions)",0.15347905040421744
+MH-3868,MH,Teen Hath Naka Flyover,31.2,41.1,6.0,51.5,-2.15,10.55,-3.41,-21.01,4.45,1.18,People living nearby,"Road geometry (bends, junctions)",0.004677695586468601
+MH-3874,MH,,68.0,84.7,-4.7,51.5,-0.72,5.75,1.95,11.18,14.33,0.69,Posted speed limit,People living nearby,0.22476271267043318
+MH-3882,MH,,56.9,72.7,8.3,51.5,1.92,8.95,-4.07,7.44,7.85,-0.92,"Road geometry (bends, junctions)",Posted speed limit,0.49194989356623775
+MH-3884,MH,Kopri Flyover,27.4,36.3,15.9,51.5,-2.03,8.17,-5.64,-20.25,4.43,0.09,People living nearby,"Road geometry (bends, junctions)",0.003960637817164005
+MH-3893,MH,Vashi Flyover,45.9,55.7,4.0,51.5,1.69,12.51,1.24,-17.18,5.46,0.51,People living nearby,"Road geometry (bends, junctions)",0.008506546729263707
+MH-3896,MH,Nerul Flyover,38.1,50.2,0.8,51.5,1.19,10.86,-2.41,-16.31,4.91,0.49,People living nearby,"Road geometry (bends, junctions)",0.0064240775494607966
+MH-3902,MH,,74.1,94.5,4.5,51.5,8.21,13.91,-0.48,14.35,2.27,4.71,People living nearby,"Road geometry (bends, junctions)",0.27397871843871974
+MH-3909,MH,Katraj - Dehu Road Bypass,42.5,55.5,-0.0,51.5,1.98,7.08,-1.35,-15.05,11.15,0.22,People living nearby,Posted speed limit,0.2728981848112949
+MH-3914,MH,Kopri Flyover,28.0,36.9,14.6,51.5,-1.38,8.11,-5.69,-20.42,4.46,0.36,People living nearby,"Road geometry (bends, junctions)",0.004056110195511419
+MH-3919,MH,Sion-Panvel Highway,43.3,53.8,14.7,51.5,1.23,7.25,-4.42,-8.94,6.73,0.5,People living nearby,"Road geometry (bends, junctions)",0.007740461727781161
+MH-3962,MH,Pune Sholapur Road,66.5,83.4,-1.4,51.5,-0.57,16.37,0.51,8.86,6.38,0.34,"Road geometry (bends, junctions)",People living nearby,0.21545129431743396
+MH-3972,MH,Sion-Panvel Highway,41.0,53.3,8.3,51.5,1.65,10.73,-2.21,-13.89,5.34,0.22,People living nearby,"Road geometry (bends, junctions)",0.00726124476436886
+MH-3977,MH,Sion-Panvel Highway,45.3,55.2,4.7,51.5,1.68,7.97,-3.31,-9.67,6.81,0.22,People living nearby,"Road geometry (bends, junctions)",0.00831038466736278
+MH-3980,MH,Sion-Panvel Highway,45.0,54.4,0.4,51.5,1.67,7.15,-3.28,-9.6,6.76,0.22,People living nearby,"Road geometry (bends, junctions)",0.008160039480151284
+MH-3984,MH,JNPT Road,55.8,69.1,4.1,51.5,1.4,15.92,-1.26,1.33,0.0,0.2,"Road geometry (bends, junctions)",Location,0.013438298710643231
+MH-3989,MH,JNPT Road,59.6,72.5,10.8,51.5,1.43,10.04,-1.29,4.72,5.92,0.2,"Road geometry (bends, junctions)",Posted speed limit,0.015563010714910388
+TH-39,TH,Kanchanaphisek Road,98.1,113.3,-2.0,90.4,2.69,2.21,3.91,3.22,7.52,3.34,Posted speed limit,"Shops, schools & stops nearby",0.07276659584768816
+TH-43,TH,Kanchanaphisek Road,113.2,124.6,-25.6,90.4,1.26,1.21,-2.52,23.07,7.9,3.26,People living nearby,Posted speed limit,0.11951699067404538
+TH-919,TH,,83.5,99.6,17.4,90.4,2.73,-1.57,5.33,3.6,1.0,-1.9,"Shops, schools & stops nearby",People living nearby,0.33957494061048765
+TH-2377,TH,,80.5,97.5,15.5,90.4,-0.95,-1.16,5.27,2.9,0.99,0.0,"Shops, schools & stops nearby",People living nearby,0.31664931880986685
+TH-5219,TH,,61.7,76.8,11.2,90.4,-0.37,-2.46,-2.26,-3.69,-3.02,-1.84,People living nearby,Posted speed limit,0.5664972758301609
+TH-6052,TH,,84.7,101.1,6.6,90.4,-1.12,0.09,5.37,1.78,1.01,3.55,"Shops, schools & stops nearby",Segment length,0.3503488871862138
+TH-6376,TH,,84.7,100.3,-1.3,90.4,-0.17,2.83,3.78,-0.72,1.0,3.13,"Shops, schools & stops nearby",Segment length,0.3487740661654844
+TH-7896,TH,,85.0,101.2,13.3,90.4,0.42,-0.75,5.37,2.58,1.01,2.15,"Shops, schools & stops nearby",People living nearby,0.3520581705157661
+TH-10701,TH,,73.2,89.1,12.9,90.4,-3.4,-3.25,5.04,2.77,0.94,-3.42,"Shops, schools & stops nearby",Segment length,0.2589118536585011
+TH-10941,TH,,76.0,93.3,19.7,90.4,-3.64,4.56,5.16,6.89,-6.78,-3.34,People living nearby,Posted speed limit,0.2820774941622137
+TH-11134,TH,,71.0,85.1,7.5,90.4,-3.32,-9.55,4.93,-0.03,0.0,2.68,"Road geometry (bends, junctions)","Shops, schools & stops nearby",0.24061524716919122
+TH-11863,TH,,76.3,92.0,12.5,90.4,-2.53,-7.44,5.12,2.81,0.96,2.63,"Road geometry (bends, junctions)","Shops, schools & stops nearby",0.2815015295157388
+TH-15807,TH,Udon Ratthaya Expressway,95.6,109.4,5.6,90.4,2.77,0.25,-0.81,16.71,-3.61,3.7,People living nearby,Segment length,0.06473551501290561
+TH-16083,TH,Phahon Yothin Road,72.5,88.0,9.0,90.4,0.03,0.47,3.07,-5.07,0.94,-1.89,People living nearby,"Shops, schools & stops nearby",0.7179840114146889
+TH-16163,TH,Phahon Yothin Road,67.9,81.5,0.5,90.4,-0.23,-2.32,-12.78,6.53,-3.11,2.95,"Shops, schools & stops nearby",People living nearby,0.662007328029941
+TH-16367,TH,Prachim Ratthaya Expressway,74.0,86.5,28.0,90.4,1.6,-5.79,-9.24,10.74,-3.2,1.99,People living nearby,"Shops, schools & stops nearby",0.027434204636649834
+TH-16432,TH,Chaeng Sanit Road,72.9,88.6,-1.6,90.4,-2.4,3.89,2.11,-2.16,-3.24,0.02,"Road geometry (bends, junctions)",Posted speed limit,0.7212840467418399
+TH-16674,TH,Chotana Road,53.0,66.5,-3.0,90.4,0.36,-1.99,-14.44,-5.05,-2.82,0.05,"Shops, schools & stops nearby",People living nearby,0.42874192950911433
+TH-16951,TH,Mahesak Road,39.6,52.3,-10.3,90.4,0.75,-10.07,-1.89,-21.78,-2.52,-2.65,People living nearby,"Road geometry (bends, junctions)",0.23389588550589457
+TH-17115,TH,Chaiyaphum-Si Khio Road,63.9,78.4,-0.4,90.4,-2.17,-2.86,-7.86,0.92,-1.41,1.39,"Shops, schools & stops nearby","Road geometry (bends, junctions)",0.6006393443708772
+TH-17203,TH,Suwannason Road,69.9,86.7,18.3,90.4,-1.11,-0.3,-6.93,2.19,0.93,1.46,"Shops, schools & stops nearby",People living nearby,0.6784655273399238
+TH-17228,TH,Lom Sak-Loei Road,85.2,101.7,8.3,90.4,-2.41,1.97,5.39,2.13,1.01,3.15,"Shops, schools & stops nearby",Segment length,0.3542221086791029
+TH-17352,TH,Pattaya-ChonBuri,84.4,100.7,12.8,90.4,-2.76,1.9,2.61,1.42,7.08,0.0,Posted speed limit,Location,0.04410076236780771
+TH-17359,TH,Ngam Wong Wan Road,39.7,53.5,17.5,90.4,1.38,-1.72,-21.87,-12.16,-2.55,0.04,"Shops, schools & stops nearby",People living nearby,0.24069280926814515
+TH-18426,TH,,43.9,55.4,10.6,90.4,-1.56,-12.79,-2.43,-14.04,-2.59,-1.58,People living nearby,"Road geometry (bends, junctions)",0.28560031238338596
+TH-19121,TH,,64.3,77.5,11.5,90.4,-1.18,-0.54,-1.44,-3.71,-3.03,-3.04,People living nearby,Segment length,0.610228592431188
+TH-19860,TH,,76.8,92.8,0.2,90.4,-0.25,-4.09,3.53,3.7,-3.32,2.8,"Road geometry (bends, junctions)",People living nearby,0.28569689853431296
+TH-20405,TH,,88.7,105.3,-0.3,90.4,1.33,2.4,5.48,1.82,1.03,2.81,"Shops, schools & stops nearby",Segment length,0.38489203038704317
+TH-20805,TH,,74.4,90.3,8.7,90.4,0.03,2.22,3.49,0.64,-3.27,-3.28,"Shops, schools & stops nearby",Segment length,0.26751875661158625
+TH-20930,TH,,56.3,69.1,0.9,90.4,-1.95,-12.73,2.73,-3.51,-2.87,-3.02,"Road geometry (bends, junctions)",People living nearby,0.1504698099374024
+TH-21350,TH,,63.5,76.7,18.3,90.4,-0.24,-14.38,1.91,0.59,-3.02,1.38,"Road geometry (bends, junctions)",Posted speed limit,0.19060670584020656
+TH-21631,TH,,81.4,97.5,-20.5,90.4,-0.27,-1.88,5.27,2.9,0.99,0.06,"Shops, schools & stops nearby",People living nearby,0.32263591565174077
+TH-23875,TH,,87.2,102.7,-1.7,90.4,2.19,1.32,3.33,3.72,1.01,0.76,People living nearby,"Shops, schools & stops nearby",0.3705982922433567
+TH-24472,TH,,64.6,79.3,-7.3,90.4,2.35,-3.65,4.76,-8.48,-3.07,-3.02,People living nearby,"Shops, schools & stops nearby",0.6101597561914487
+TH-24586,TH,,40.4,55.9,14.1,90.4,1.99,-6.42,0.0,-24.8,-2.6,-2.73,People living nearby,"Road geometry (bends, junctions)",0.256849411660561
+TH-26837,TH,,73.9,90.0,-17.0,90.4,-3.42,0.77,-2.45,1.04,0.95,2.69,Location,Segment length,0.2645384124311456
+TH-27290,TH,,60.8,74.1,6.9,90.4,-2.11,-11.69,2.83,0.72,-2.97,-3.12,"Road geometry (bends, junctions)",Segment length,0.17524770398146602
+TH-28687,TH,,75.8,91.8,-15.8,90.4,-2.51,-0.51,5.12,-0.21,-3.3,2.78,"Shops, schools & stops nearby",Posted speed limit,0.2781816085361485
+TH-29650,TH,,77.2,92.6,-11.6,90.4,-2.37,-0.66,3.53,0.69,0.96,0.06,"Shops, schools & stops nearby",Location,0.7751217769066733
+TH-30346,TH,,63.4,76.8,3.2,90.4,-4.41,0.7,-1.84,-3.29,-3.02,-1.77,Location,People living nearby,0.1902202004704539
+TH-30826,TH,,66.2,79.7,10.3,90.4,-3.41,-13.9,4.77,2.62,0.89,-1.7,"Road geometry (bends, junctions)","Shops, schools & stops nearby",0.20759512636329505
+TH-31656,TH,Chaloem Mahanakhon Expressway,66.1,80.3,1.7,90.4,0.59,-6.42,-3.12,1.86,-3.09,0.05,"Road geometry (bends, junctions)","Shops, schools & stops nearby",0.02066228488210144
+TH-31991,TH,,48.8,61.0,13.0,90.4,2.08,-4.77,4.2,-25.33,-2.71,-2.85,People living nearby,"Road geometry (bends, junctions)",0.009944287034047001
+TH-31998,TH,,40.3,53.2,8.8,90.4,1.95,-10.92,0.0,-20.2,-5.41,-2.67,People living nearby,"Road geometry (bends, junctions)",0.007108899867052968
+TH-32286,TH,,47.8,62.5,17.5,90.4,1.48,-5.61,4.21,-23.71,-2.74,-1.51,People living nearby,"Road geometry (bends, junctions)",0.010009053913893316
+TH-32424,TH,,50.5,66.1,6.9,90.4,0.54,-5.46,4.36,-18.01,-2.81,-2.96,People living nearby,"Road geometry (bends, junctions)",0.011356168449329823
+TH-32581,TH,,48.0,63.3,7.7,90.4,0.9,-4.63,2.62,-17.46,-5.87,-2.71,People living nearby,Posted speed limit,0.010199853846237927
+TH-32959,TH,,53.9,70.1,4.9,90.4,0.95,-0.4,3.28,-18.34,-2.89,-2.9,People living nearby,"Shops, schools & stops nearby",0.013189338412006344
+TH-33027,TH,,37.1,49.8,2.2,90.4,-0.4,-11.83,2.63,-23.54,-5.02,-2.47,People living nearby,"Road geometry (bends, junctions)",0.0062296913151151856
+TH-33043,TH,,51.9,64.8,-3.3,90.4,-1.65,-15.87,4.32,-10.33,0.81,-2.93,"Road geometry (bends, junctions)",People living nearby,0.011399598195755492
+TH-33045,TH,,50.9,64.8,12.2,90.4,-2.23,-2.97,3.05,-18.21,-2.49,-2.74,People living nearby,"Shops, schools & stops nearby",0.011156951451636785
+TH-33208,TH,,73.5,91.2,-9.4,90.4,-2.64,4.21,0.0,1.01,-3.29,1.5,"Road geometry (bends, junctions)",Posted speed limit,0.02975851375732468
+TH-33251,TH,,66.8,81.1,-5.1,90.4,-2.48,-6.35,4.81,-3.1,0.9,-3.05,"Road geometry (bends, junctions)","Shops, schools & stops nearby",0.021314704666387754
+TH-33258,TH,,57.4,70.7,-22.2,90.4,-2.32,-18.17,4.5,1.75,-2.59,-2.86,"Road geometry (bends, junctions)","Shops, schools & stops nearby",0.0143364972192949
+TH-33357,TH,,83.8,99.0,,90.4,-2.74,1.07,5.32,2.24,-0.19,2.89,"Shops, schools & stops nearby",Segment length,0.04228189576505316
+TH-33361,TH,,83.4,98.7,,90.4,-2.73,1.2,4.84,2.24,-0.19,2.89,"Shops, schools & stops nearby",Segment length,0.041636622952218934
+TH-33653,TH,Sirat Expressway,49.6,64.5,34.0,90.4,0.83,-2.32,-16.35,-3.76,-2.78,-1.53,"Shops, schools & stops nearby",People living nearby,0.010788943189470258
+TH-33657,TH,Sirat Expressway,55.1,69.8,25.8,90.4,0.55,-5.47,-14.58,1.74,-2.89,0.05,"Shops, schools & stops nearby","Road geometry (bends, junctions)",0.013413097978395409
+TH-33681,TH,Mittraphap Road,63.6,78.6,1.9,90.4,-0.15,1.29,-13.67,-2.92,0.89,2.77,"Shops, schools & stops nearby",People living nearby,0.594076246124781
+TH-34003,TH,Khotchaseni Road,81.0,97.3,15.7,90.4,-2.41,1.76,3.62,2.89,0.99,0.06,"Shops, schools & stops nearby",People living nearby,0.31972895264689216
+TH-34175,TH,Bangkok-Chonburi Motorway,95.8,110.8,0.7,90.4,-2.9,4.36,-7.65,16.06,7.43,3.06,People living nearby,"Shops, schools & stops nearby",0.06646493165443648
+TH-34180,TH,Bangkok-Chonburi Motorway,63.9,79.6,17.4,90.4,-2.46,-4.44,3.28,0.0,0.89,-8.05,Segment length,"Road geometry (bends, junctions)",0.019506727950458595
+TH-34270,TH,Sathitnimankan Road,75.8,91.9,8.1,90.4,-5.38,2.71,3.14,0.01,0.96,0.0,Location,"Shops, schools & stops nearby",0.2782952571064138
+TH-34321,TH,Laem Chabang Connector,77.8,93.9,0.7,90.4,-2.67,-0.39,5.13,0.47,0.97,0.0,"Shops, schools & stops nearby",Location,0.034056805426566375
+TH-34488,TH,Sukhumvit Road,44.5,58.6,0.4,90.4,-2.12,-3.67,-11.03,-12.34,-2.66,0.0,People living nearby,"Shops, schools & stops nearby",0.3045077890857531
+TH-34491,TH,Sukhumvit Road,59.6,75.7,15.6,90.4,-2.4,-2.76,-8.9,-0.35,-3.0,2.7,"Shops, schools & stops nearby",Posted speed limit,0.5334140500404791
+TH-34804,TH,Bang Saen Sai 2 Road,36.7,49.3,1.7,90.4,-1.96,-6.97,-12.88,-15.47,-2.46,-1.35,People living nearby,"Shops, schools & stops nearby",0.19993758503725462
+TH-35119,TH,Phibun Songkhram Road,40.7,53.1,11.9,90.4,1.72,-13.13,-10.95,-12.41,-2.54,0.0,"Road geometry (bends, junctions)",People living nearby,0.24638520648843673
+TH-35315,TH,Nittayo Road,51.2,66.4,-9.4,90.4,-4.11,1.6,-12.29,-8.72,-2.82,2.32,"Shops, schools & stops nearby",People living nearby,0.40478948330655545
+TH-35475,TH,Chamadevi Road,56.0,69.5,-5.5,90.4,-1.41,-7.07,-9.73,-5.23,0.84,1.69,"Shops, schools & stops nearby","Road geometry (bends, junctions)",0.1501868510993522
+TH-35482,TH,Luang Road,36.3,47.9,-2.9,90.4,-5.15,-8.08,-9.96,-15.38,-2.42,-1.48,People living nearby,"Shops, schools & stops nearby",0.19106358161134196
+TH-35741,TH,Mittraphap Road,74.5,92.0,-4.5,90.4,-2.34,2.71,0.0,1.47,0.96,-1.21,"Road geometry (bends, junctions)",Location,0.27137143679584447
+TH-35751,TH,Mittraphap Road,70.5,86.3,29.7,90.4,-2.27,1.26,2.09,-2.04,-3.2,0.05,Posted speed limit,Location,0.24001190370047248
+TH-35775,TH,Mittraphap Road,63.8,80.8,20.2,90.4,-0.92,-6.3,4.8,0.01,0.9,-8.11,Segment length,"Road geometry (bends, junctions)",0.1989156524320517
+TH-35943,TH,3061 Road,68.3,83.1,-33.1,90.4,-0.35,-6.2,4.87,-3.42,0.91,-3.09,"Road geometry (bends, junctions)","Shops, schools & stops nearby",0.663296516912748
+TH-36128,TH,Phetkasem Road,75.9,92.3,4.2,90.4,2.63,2.3,-6.97,7.14,-3.31,0.06,People living nearby,"Shops, schools & stops nearby",0.28004729412094415
+TH-36163,TH,Phetkasem Road,76.1,91.7,-0.7,90.4,-0.92,1.26,3.51,0.64,-3.3,0.06,"Shops, schools & stops nearby",Posted speed limit,0.27994305222550886
+TH-36214,TH,Phetkasem Road,60.7,75.2,22.3,90.4,-0.89,-2.64,-14.05,5.25,-2.99,0.05,"Shops, schools & stops nearby",People living nearby,0.5513528571911165
+TH-36341,TH,Ratchaphruek Road,79.1,93.9,7.1,90.4,2.26,-3.62,3.18,0.65,0.97,0.06,"Road geometry (bends, junctions)","Shops, schools & stops nearby",0.302079861739986
+TH-36501,TH,Vajiravudh Damnoen Road,80.3,94.9,5.1,90.4,-0.03,-3.57,3.19,2.27,0.97,1.68,"Road geometry (bends, junctions)","Shops, schools & stops nearby",0.3113942900347332
+TH-36738,TH,Nakhon Ratchasima - Hin Khon Road,53.1,68.7,3.3,90.4,-0.94,-0.97,-4.12,-11.16,-2.86,-1.68,People living nearby,"Shops, schools & stops nearby",0.4343621245176947
+TH-37185,TH,,65.2,79.5,5.5,90.4,2.22,-3.95,0.0,-4.47,-3.07,-1.69,People living nearby,"Road geometry (bends, junctions)",0.6215160112129536
+TH-38604,TH,,56.4,67.5,-10.5,90.4,-1.39,-16.21,-7.57,2.49,-2.84,2.58,"Road geometry (bends, junctions)","Shops, schools & stops nearby",0.48286036163472756
+TH-38664,TH,,61.9,74.6,4.9,90.4,-0.83,-16.18,2.84,0.58,0.86,-3.13,"Road geometry (bends, junctions)",Segment length,0.5724126833897152
+TH-39210,TH,,72.9,85.7,-5.9,90.4,1.19,-14.99,-1.29,7.06,0.0,3.27,"Road geometry (bends, junctions)",People living nearby,0.2518282899183073
+TH-39471,TH,,53.2,64.4,-22.9,90.4,-0.78,-25.86,2.96,0.39,-2.78,0.02,"Road geometry (bends, junctions)","Shops, schools & stops nearby",0.13361031584373656
+TH-40191,TH,,58.7,74.2,-29.7,90.4,-0.22,-6.89,1.85,-8.26,-2.66,0.0,People living nearby,"Road geometry (bends, junctions)",0.5193850141236563
+TH-40969,TH,,57.1,72.3,18.7,90.4,-0.82,-8.55,4.55,-15.73,0.85,1.54,People living nearby,"Road geometry (bends, junctions)",0.49504313970262376
+TH-41125,TH,,79.7,95.7,-6.7,90.4,-1.0,0.99,3.59,0.66,0.98,0.06,"Shops, schools & stops nearby",Location,0.30839359453392035
+TH-42384,TH,,64.9,78.4,-4.9,90.4,-1.04,-9.43,-4.33,1.84,0.89,0.05,"Road geometry (bends, junctions)","Shops, schools & stops nearby",0.1993031373697187
+TH-46497,TH,,81.1,95.2,-19.2,90.4,3.25,-2.13,5.21,0.83,0.97,-3.37,"Shops, schools & stops nearby",Segment length,0.3168634723885123
+TH-47853,TH,,48.8,62.7,-14.2,90.4,0.88,-9.55,-1.99,-7.52,-2.74,-6.84,"Road geometry (bends, junctions)",People living nearby,0.3653686979530179
+TH-48688,TH,,59.0,71.1,-7.1,90.4,-5.03,-20.44,-1.55,5.25,0.0,2.46,"Road geometry (bends, junctions)",People living nearby,0.16329074656341944
+TH-48950,TH,,53.5,66.9,-21.4,90.4,-2.26,-13.45,4.38,-2.23,-2.53,-7.41,"Road geometry (bends, junctions)",Segment length,0.4362177515123496
+TH-48956,TH,,47.4,61.7,-12.7,90.4,-2.17,-2.94,1.28,-15.36,-2.72,-6.79,People living nearby,Segment length,0.34582898055205974
+TH-49176,TH,,61.5,71.3,-12.3,90.4,-3.44,-25.04,4.12,1.91,0.85,2.46,"Road geometry (bends, junctions)","Shops, schools & stops nearby",0.17418448849939022
+TH-51121,TH,,67.8,81.0,-5.0,90.4,-2.3,-11.78,2.02,1.69,0.9,0.05,"Road geometry (bends, junctions)",Location,0.21758221815462092
+TH-51626,TH,,70.6,85.9,-12.4,90.4,-7.08,-0.43,-1.95,1.29,0.93,2.69,Location,Segment length,0.6944991976287929
+TH-54100,TH,,73.9,88.3,2.5,90.4,-2.39,-8.49,-4.48,8.94,0.94,3.32,People living nearby,"Road geometry (bends, junctions)",0.2613390132220036
+TH-55873,TH,Rama II Road,55.5,71.4,-4.9,90.4,-1.04,-2.64,-24.05,9.17,-2.92,2.46,"Shops, schools & stops nearby",People living nearby,0.47011875307951445

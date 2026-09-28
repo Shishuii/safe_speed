@@ -1,0 +1,5 @@
+# keep binary files byte-exact on every platform (no line-ending conversion or text diff)
+*.pdf binary
+*.npz binary
+*.jpg binary
+*.zip binary

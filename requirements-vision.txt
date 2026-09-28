@@ -1,0 +1,11 @@
+# Optional. Only needed to embed NEW street images: run_vision.py --embed-to NEW.npz
+# (or run_vision.py --from-pixels). The samples and every --check need only
+# requirements.txt (numpy, pandas).
+# Downloads openai/clip-vit-large-patch14 (about 1.7 GB) on first use. With
+# --with-dinov3 it also downloads timm/vit_large_patch16_dinov3.lvd1689m (about 1.2 GB,
+# DINOv3 License), which only the a_* columns and the ensemble's with_dinov3 stack need.
+-r requirements.txt
+pillow>=9.0
+torch>=2.1
+transformers>=4.40
+timm>=1.0.20

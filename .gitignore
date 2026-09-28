@@ -1,0 +1,9 @@
+# data/ and weights/ come from the Google Drive download (SafeSpeed_data_weights.zip),
+# unzipped in this folder; they are not part of the repository.
+/data/
+/weights/
+/DATA_WEIGHTS_README.txt
+*.zip
+.venv/
+__pycache__/
+*.pyc
